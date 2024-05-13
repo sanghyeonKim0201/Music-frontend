@@ -2,3 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 @tailwind variants;
+
+input:focus {
+  border: none;
+}
+input:active {
+  border: none;
+}
