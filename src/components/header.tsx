@@ -7,15 +7,24 @@ export default function Header() {
 
   return (
     <header className='fixed top-0 left-0 right-0 z-[999]'>
-      <div className='flex flex-row justify-between items-center pl-7 pt-3 pr-40'>
+      <div className='flex flex-row justify-between items-center pr-40 pt-3'>
         <div className='flex flex-row items-center'>
           {/* 이 div width 조절해서 목록 접히고 핀거 구현 예정 */}
           <div className='flex flex-row'>
-            <div className='mr-5 pt-1'>
-              <span className='material-symbols-outlined'>menu</span>
+            <div className='ml-4 mr-3 p-1 hover:bg-zinc-800 rounded-[50%] w-10 h-10 flex flex-row justify-center items-center'>
+              <button className='pt-1'>
+                <span className='material-symbols-outlined'>menu</span>
+              </button>
             </div>
-            <div className='mr-5 pt-1'>
-              <Image src={'/logo.png'} alt='' width={80} height={100} />
+            <div className='mr-6 mt-2'>
+              <button>
+                <Image
+                  src={'/YoutubeMusic.png'}
+                  alt=''
+                  width={80}
+                  height={100}
+                />
+              </button>
             </div>
           </div>
 

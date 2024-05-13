@@ -7,9 +7,12 @@ export default function RootPage() {
             ','
           )[i];
         return (
-          <div key={i} className='bg-[#FFFFFF26] rounded-lg py-2 px-3 mr-2'>
+          <button
+            key={i}
+            className='bg-zinc-800 hover:bg-zinc-700 rounded-lg py-2 px-3 mr-2'
+          >
             <p className='text-xs'>{text}</p>
-          </div>
+          </button>
         );
       })}
     </div>

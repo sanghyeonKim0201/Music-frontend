@@ -2,7 +2,7 @@
 /* eslint-disable @next/next/google-font-display */
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import '@/styles/globals.css';
+import '@/styles/tailwind.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -23,7 +23,11 @@ export default function RootLayout({
           rel='stylesheet'
         />
       </head>
-      <body className={`${inter.className}`}>{children}</body>
+      <body
+        className={`${inter.className} bg-slate-100 flex justify-center items-center min-h-[100vh]`}
+      >
+        {children}
+      </body>
     </html>
   );
 }
