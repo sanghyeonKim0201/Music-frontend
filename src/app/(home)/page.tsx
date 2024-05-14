@@ -1,10 +1,11 @@
 export default function RootPage() {
   return (
-    <div className='flex flex-row'>
+    // 사이드바 펴치면 ml-40 접히면 ml-0
+    <div className='flex flex-row ml-40'>
       {new Array(10).fill(null).map((o, i) => {
         const text =
           '운동,에너지 충전,행복한 기운,휴식,출퇴근길,집중,잠잘 때,파티,슬픔,로맨스'.split(
-            ','
+            ',',
           )[i];
         return (
           <button
