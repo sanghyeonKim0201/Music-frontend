@@ -1,7 +1,12 @@
 export default function SideBar() {
   const closeSide = (
     <div className='h-full flex flex-col items-start pt-16 '>
-      <div className='flex flex-col pl-2'>
+      <div
+        className='flex flex-col pl-2'
+        style={{
+          fontVariationSettings: "'wght' 300",
+        }}
+      >
         {new Array(3).fill(null).map((o, i) => {
           const icon = 'home,explore,library_music'.split(',')[i];
           const text = '홈,둘러보기,보관함'.split(',')[i];
@@ -86,6 +91,6 @@ export default function SideBar() {
   );
 
   return (
-    <aside className='w-[15rem] h-full fixed left-0 top-0'>{openSide}</aside>
+    <aside className='w-[15rem] h-full fixed left-0 top-0'>{closeSide}</aside>
   );
 }
