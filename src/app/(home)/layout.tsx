@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google';
 import '@/styles/globals.css';
 import Header from '@/components/header';
 import SideBar from '@/components/sidebar';
+import StoreProvider from '../StoreProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -27,11 +28,13 @@ export default function RootLayout({
         />
       </head>
       <body className={`h-full ${inter.className}`}>
-        <Header />
-        <div className='h-full flex flex-row'>
-          <SideBar />
-          <div className='pt-28 pl-44'>{children}</div>
-        </div>
+        <StoreProvider>
+          <Header />
+          <div className='h-full flex flex-row'>
+            <SideBar />
+            <div className='pt-28 pl-44 w-full'>{children}</div>
+          </div>
+        </StoreProvider>
       </body>
     </html>
   );

@@ -1,16 +1,26 @@
+'use client';
+import { change } from '@/lib/feature/menuSlice';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Header() {
+  const toggle = useAppSelector((state) => state.RootReducer.menuSlice.toggle);
+  const dispatch = useAppDispatch();
   return (
     <header className='fixed top-0 left-0 right-0 z-[999]'>
       <div className='flex flex-row justify-between items-center pr-40 pt-3'>
         <div className='flex flex-row items-center'>
           {/* 이 div width 조절해서 목록 접히고 핀거 구현 예정 */}
           {/* 사이드바  접히면 mr-0 펼쳐지면 mr-40 */}
-          <div className='flex flex-row mr-40'>
+          <div className={`flex flex-row ${toggle ? 'mr-0' : 'mr-40'}`}>
             <div className='ml-5 mr-3 p-1 hover:bg-zinc-800 rounded-[50%] w-10 h-10 flex flex-row justify-center items-center'>
-              <button className='pt-1'>
+              <button
+                className='pt-1'
+                onClick={() => {
+                  dispatch(change(toggle));
+                }}
+              >
                 <span
                   className='material-symbols-outlined'
                   style={{ fontVariationSettings: "'wght' 300" }}
@@ -23,10 +33,12 @@ export default function Header() {
               <button>
                 <Link href={'/'}>
                   <Image
+                    priority={true}
                     src={'/YoutubeMusic.png'}
                     alt=''
                     width={80}
                     height={100}
+                    className='w-20 h-auto'
                   />
                 </Link>
               </button>

@@ -1,4 +1,8 @@
+'use client';
+import { useAppSelector } from '@/lib/hooks';
+
 export default function SideBar() {
+  const toggle = useAppSelector((state) => state.RootReducer.menuSlice.toggle);
   const closeSide = (
     <div className='h-full flex flex-col items-start pt-16 '>
       <div
@@ -24,10 +28,10 @@ export default function SideBar() {
   );
 
   const openSide = (
-    <div className='h-full w-full flex flex-col iteims-center pt-[4.5rem] border-r border-zinc-700'>
+    <div className='h-full w-full flex flex-col items-center pt-[4.5rem] border-r border-zinc-700'>
       <div
         style={{
-          fontVariationSettings: "'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 48;",
+          fontVariationSettings: "'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 48",
         }}
         className='w-full px-2'
       >
@@ -48,7 +52,7 @@ export default function SideBar() {
         })}
       </div>
 
-      <hr className='border-zinc-700 mx-6 mt-6' />
+      <hr className='border-zinc-700 mt-6 w-48' />
 
       <div className='flex w-full justify-center mt-6'>
         <button className='flex flex-row bg-zinc-800 hover:bg-zinc-700 px-12 justify-center items-center rounded-3xl'>
@@ -91,6 +95,8 @@ export default function SideBar() {
   );
 
   return (
-    <aside className='w-[15rem] h-full fixed left-0 top-0'>{closeSide}</aside>
+    <aside className='w-[15rem] h-full fixed left-0 top-0'>
+      {toggle ? closeSide : openSide}
+    </aside>
   );
 }
