@@ -2,17 +2,21 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState = {
   toggle: true,
+  selectedMenu: '홈',
 };
 
-export const menu = createSlice({
+export const menuSlice = createSlice({
   name: 'toggle',
   initialState,
   reducers: {
-    change: (state, action) => {
-      return { toggle: !state.toggle };
+    change: (state) => {
+      state.toggle = !state.toggle;
+    },
+    selectionMenu: (state, action) => {
+      state.selectedMenu = action.payload;
     },
   },
 });
 
-export const { change } = menu.actions;
-export default menu.reducer;
+export const { change, selectionMenu } = menuSlice.actions;
+export default menuSlice.reducer;

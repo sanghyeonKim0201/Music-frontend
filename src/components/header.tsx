@@ -1,24 +1,40 @@
 'use client';
-import { change } from '@/lib/feature/menuSlice';
+import { menuSlice } from '@/lib/feature/menuSlice';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 export default function Header() {
-  const toggle = useAppSelector((state) => state.RootReducer.menuSlice.toggle);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const updateScroll = () => {
+    setScrollPosition(window.scrollY || document.documentElement.scrollTop);
+    console.log(scrollPosition);
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', updateScroll);
+  });
+
+  const menu = useAppSelector((state) => state.RootReducer.menuSlice);
   const dispatch = useAppDispatch();
   return (
-    <header className='fixed top-0 left-0 right-0 z-[999]'>
+    <header
+      className={`fixed top-0 left-0 right-0 z-[999] pb-3 ${
+        scrollPosition < 10
+          ? 'bg-transparent'
+          : 'bg-black border-b border-zinc-700'
+      }`}
+    >
       <div className='flex flex-row justify-between items-center pr-40 pt-3'>
         <div className='flex flex-row items-center'>
           {/* 이 div width 조절해서 목록 접히고 핀거 구현 예정 */}
           {/* 사이드바  접히면 mr-0 펼쳐지면 mr-40 */}
-          <div className={`flex flex-row ${toggle ? 'mr-0' : 'mr-40'}`}>
+          <div className={`flex flex-row ${menu.toggle ? 'mr-0' : 'mr-40'}`}>
             <div className='ml-5 mr-3 p-1 hover:bg-zinc-800 rounded-[50%] w-10 h-10 flex flex-row justify-center items-center'>
               <button
                 className='pt-1'
                 onClick={() => {
-                  dispatch(change(toggle));
+                  dispatch(menuSlice.actions.change());
                 }}
               >
                 <span
@@ -38,7 +54,8 @@ export default function Header() {
                     alt=''
                     width={80}
                     height={100}
-                    className='w-20 h-auto'
+                    style={{ width: '5rem', height: '1.5rem' }}
+                    className='w-20 h-6'
                   />
                 </Link>
               </button>
