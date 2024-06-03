@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import menuSlice from './feature/menuSlice';
+import payloadSlice from './feature/payloadSlice';
 
 const RootReducer = combineReducers({
   menuSlice,
+  payloadSlice,
 });
 
 export const makeStore = () => {

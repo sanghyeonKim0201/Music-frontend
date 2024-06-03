@@ -6,6 +6,8 @@ import '@/styles/globals.css';
 import Header from '@/components/header';
 import SideBar from '@/components/sidebar';
 import StoreProvider from '../StoreProvider';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import Payload from '@/components/payload';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -34,6 +36,7 @@ export default function RootLayout({
             <SideBar />
             <div className='pt-28 pl-44 w-full'>{children}</div>
           </div>
+          <Payload />
         </StoreProvider>
       </body>
     </html>
