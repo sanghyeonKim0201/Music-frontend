@@ -20,7 +20,6 @@ export default function SideBar() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const updateScroll = () => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
-    console.log(scrollPosition);
   };
   useEffect(() => {
     window.addEventListener('scroll', updateScroll);
