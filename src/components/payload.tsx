@@ -17,6 +17,6 @@ export default function Payload({ data }: { data: RequestCookie | undefined }) {
       delete payload.exp;
       dispatch(change(payload));
     }
-  }, []);
+  });
   return null;
 }

@@ -14,7 +14,11 @@ export default function Header() {
     window.addEventListener('scroll', updateScroll);
   });
 
-  const menu = useAppSelector((state) => state.RootReducer.menuSlice);
+  const useMenuStore = useAppSelector((state) => state.RootReducer.menuSlice);
+  const usePayloadStore = useAppSelector(
+    (state) => state.RootReducer.payloadSlice,
+  );
+
   const dispatch = useAppDispatch();
   return (
     <header
@@ -24,11 +28,15 @@ export default function Header() {
           : 'bg-black border-b border-zinc-700'
       }`}
     >
-      <div className='flex flex-row justify-between items-center pr-40 pt-3'>
+      <div className='flex flex-row justify-between items-center pr-28 pt-3'>
         <div className='flex flex-row items-center'>
           {/* 이 div width 조절해서 목록 접히고 핀거 구현 예정 */}
           {/* 사이드바  접히면 mr-0 펼쳐지면 mr-40 */}
-          <div className={`flex flex-row ${menu.toggle ? 'mr-0' : 'mr-40'}`}>
+          <div
+            className={`flex flex-row ${
+              useMenuStore.toggle ? 'mr-0' : 'mr-40'
+            }`}
+          >
             <div className='ml-5 mr-3 p-1 hover:bg-zinc-800 rounded-[50%] w-10 h-10 flex flex-row justify-center items-center'>
               <button
                 className='pt-1'
@@ -76,7 +84,18 @@ export default function Header() {
           </div>
         </div>
 
-        <div className='flex flex-row'>asasd</div>
+        <div className='flex flex-row'>
+          <span className='material-symbols-outlined mr-6'>cast</span>
+          {usePayloadStore.picture ? (
+            <Image
+              className='bg-white rounded-full'
+              src={`${usePayloadStore.picture}`}
+              alt='profile'
+              width={'25'}
+              height={'25'}
+            ></Image>
+          ) : null}
+        </div>
       </div>
     </header>
   );
