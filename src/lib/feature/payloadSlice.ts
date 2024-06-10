@@ -6,7 +6,6 @@ interface InitialState {
   last_name: string;
   email: string;
   picture: string;
-  token: string;
 }
 
 const initialState = {
@@ -15,7 +14,6 @@ const initialState = {
   last_name: '',
   email: '',
   picture: '',
-  token: '',
 };
 
 export const payloadSlice = createSlice({
@@ -23,7 +21,13 @@ export const payloadSlice = createSlice({
   initialState,
   reducers: {
     change: (state, action) => {
-      state = action.payload;
+      const payload: InitialState = action.payload;
+      state.email = payload.email;
+      state.first_name = payload.first_name;
+      state.id = payload.id;
+      state.last_name = payload.last_name;
+      state.picture = payload.picture;
+      // state = action.payload;
     },
   },
 });
