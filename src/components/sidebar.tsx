@@ -1,6 +1,7 @@
 'use client';
 import { selectionMenu } from '@/lib/feature/menuSlice';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import UseFetch from '@/utils/useFetch';
 import { useEffect, useState } from 'react';
 
 export default function SideBar() {
@@ -18,12 +19,21 @@ export default function SideBar() {
   const dispatch = useAppDispatch();
 
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [playlists, setPlaylists] = useState<Items[]>([]);
   const updateScroll = () => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
   };
   useEffect(() => {
     window.addEventListener('scroll', updateScroll);
-  });
+
+    async function getPlaylists() {
+      const response = await UseFetch('/api/youtube/playlists');
+      const data = await response.json();
+      setPlaylists(data.items);
+    }
+
+    getPlaylists();
+  }, []);
 
   function changeMenu(payload: string) {
     dispatch(selectionMenu(payload));
@@ -120,9 +130,22 @@ export default function SideBar() {
       </div>
 
       <div className='w-full flex flex-col justify-center px-2 mt-5'>
-        {new Array(2).fill(null).map((o, i) => {
-          const title = ['좋아요 표시한 음악', '나중에 볼 에피소드'][i];
-          const context = ['자동 재생목록', '자동 재생목록'][i];
+        {new Array(playlists.length + 2).fill(null).map((o, i) => {
+          const titleList = ['좋아요 표시한 음악'];
+          const contextList = ['자동 재생목록'];
+
+          playlists.forEach((o) => {
+            if (!o.snippet) return;
+            titleList.push(o.snippet.title);
+            contextList.push(o.snippet.channelTitle);
+          });
+
+          titleList.push('나중에 볼 에피소드');
+          contextList.push('자동 재생목록');
+
+          let title = titleList[i];
+          let context = contextList[i];
+
           return (
             <button
               key={i}

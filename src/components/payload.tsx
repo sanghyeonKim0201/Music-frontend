@@ -10,13 +10,13 @@ export default function Payload({ data }: { data: RequestCookie | undefined }) {
     (state) => state.RootReducer.payloadSlice,
   );
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    if (data?.value) {
-      const payload = jwtDecode(data.value);
-      delete payload.iat;
-      delete payload.exp;
-      dispatch(change(payload));
-    }
-  });
+
+  if (data?.value) {
+    const payload = jwtDecode(data.value);
+    delete payload.iat;
+    delete payload.exp;
+    dispatch(change(payload));
+  }
+
   return null;
 }
