@@ -19,7 +19,7 @@ export default function SideBar() {
   const dispatch = useAppDispatch();
 
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [playlists, setPlaylists] = useState<Items[]>([]);
+  const [playlists, setPlaylists] = useState<Playlist['items']>([]);
   const updateScroll = () => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
   };
@@ -135,7 +135,6 @@ export default function SideBar() {
           const contextList = ['자동 재생목록'];
 
           playlists.forEach((o) => {
-            if (!o.snippet) return;
             titleList.push(o.snippet.title);
             contextList.push(o.snippet.channelTitle);
           });

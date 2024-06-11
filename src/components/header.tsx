@@ -54,7 +54,7 @@ export default function Header() {
             </div>
             <div className='mr-6 mt-2'>
               <button>
-                <Link href={'/'}>
+                <Link href={'/main'}>
                   <Image
                     priority={true}
                     src={'/YoutubeMusic.png'}
