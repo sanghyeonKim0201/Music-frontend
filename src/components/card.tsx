@@ -32,14 +32,14 @@ export default function Card({
           const image = item.thumbnails.medium.url;
           return (
             <div key={i} className='flex flex-col mr-5'>
-              <div>
+              <div className='h-full'>
                 {image ? (
                   <Image
                     src={image}
                     alt='video profile'
                     width={300}
                     height={300}
-                    className='rounded-md h-full'
+                    className='rounded-md h-full pb-5'
                   ></Image>
                 ) : null}
               </div>
