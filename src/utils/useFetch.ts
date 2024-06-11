@@ -32,9 +32,7 @@ export default async function UseFetch(
           ...defaultHeaders,
         },
       });
-      console.log(
-        '============================================================================================================================',
-      );
+
       const newAccessToken = refreshApi.headers
         .getSetCookie()
         .find((o) => o.includes('accessToken'))
