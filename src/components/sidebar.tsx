@@ -19,7 +19,7 @@ export default function SideBar() {
   const dispatch = useAppDispatch();
 
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [playlists, setPlaylists] = useState<Playlist['items']>([]);
+  const [playlists, setPlaylists] = useState<Playlists['items']>([]);
   const updateScroll = () => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
   };
@@ -183,7 +183,7 @@ export default function SideBar() {
     <aside
       className={`${
         useMenuStore.toggle ? 'w-20' : 'w-[15rem]'
-      } h-full fixed left-0 top-0`}
+      } h-full fixed z-[998] left-0 top-0`}
     >
       {useMenuStore.toggle ? closeSide : openSide}
     </aside>

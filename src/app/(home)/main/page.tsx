@@ -21,7 +21,12 @@ export default async function MainPage() {
   return (
     <Card
       videos={vidoes}
-      title={{ title: '다시 듣기', context: '김상현' }}
+      title={{
+        title: '다시 듣기',
+        context: '김상현',
+        image:
+          'https://lh3.googleusercontent.com/a/ACg8ocJmUux6918duRgQiTCEWHW6eqeGv7JTljNP6uiVwsFn4JKIdMFg=s96-c',
+      }}
     ></Card>
   );
 }

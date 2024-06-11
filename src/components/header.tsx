@@ -85,16 +85,20 @@ export default function Header() {
         </div>
 
         <div className='flex flex-row'>
-          <span className='material-symbols-outlined mr-6'>cast</span>
-          {usePayloadStore.picture ? (
-            <Image
-              className='bg-white rounded-full'
-              src={`${usePayloadStore.picture}`}
-              alt='profile'
-              width={'25'}
-              height={'25'}
-            ></Image>
-          ) : null}
+          <button>
+            <span className='material-symbols-outlined mr-6'>cast</span>
+          </button>
+          <button className='pb-1'>
+            {usePayloadStore.picture ? (
+              <Image
+                className='bg-white rounded-full'
+                src={`${usePayloadStore.picture}`}
+                alt='profile'
+                width={'25'}
+                height={'25'}
+              ></Image>
+            ) : null}
+          </button>
         </div>
       </div>
     </header>

@@ -1,4 +1,4 @@
-interface Playlist {
+interface Playlists {
   kind: string;
   etag: string;
   pageInfo: {
