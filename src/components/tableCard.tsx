@@ -1,6 +1,7 @@
 'use client';
 import Image from 'next/image';
 import { useState } from 'react';
+import SmallCard from './smallCard';
 
 export default function TableCard({
   items,
@@ -105,25 +106,12 @@ export default function TableCard({
                   const context = item.channelTitle;
                   const image = item.thumbnails.medium.url;
                   return (
-                    <div className='flex flex-row' key={j}>
-                      <div className='w-14 h-14 mr-4'>
-                        <Image
-                          src={image}
-                          width={100}
-                          height={80}
-                          alt='video profile'
-                          className='h-full object-cover'
-                        ></Image>
-                      </div>
-                      <div className='flex flex-col'>
-                        <div className='flex flex-row truncate font-bold w-48 items-end text-end flex-1'>
-                          {title}
-                        </div>
-                        <div className='flex flex-row truncate font-thin text-zinc-400 items-end text-end flex-1'>
-                          {context}
-                        </div>
-                      </div>
-                    </div>
+                    <SmallCard
+                      key={j}
+                      image={image}
+                      title={title}
+                      context={context}
+                    ></SmallCard>
                   );
                 })}
               </div>

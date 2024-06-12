@@ -1,4 +1,4 @@
-import Card from '@/components/card';
+import CardGroup from '@/components/cardGroup';
 import TableCard from '@/components/tableCard';
 import UseFetch from '@/utils/useFetch';
 import { cookies } from 'next/headers';
@@ -31,7 +31,7 @@ export default async function MainPage() {
   const liekVidoes = await getLikeVideos();
   return (
     <div>
-      <Card
+      <CardGroup
         items={liekVidoes.items}
         data={{
           title: '다시 듣기',
@@ -39,7 +39,7 @@ export default async function MainPage() {
           image:
             'https://lh3.googleusercontent.com/a/ACg8ocJmUux6918duRgQiTCEWHW6eqeGv7JTljNP6uiVwsFn4JKIdMFg=s96-c',
         }}
-      ></Card>
+      ></CardGroup>
       <TableCard
         data={{
           title: '빠른 선곡',
@@ -54,7 +54,7 @@ export default async function MainPage() {
         const imageList = ['', ''];
         const items = [vidoes.items.slice(0, 7), vidoes.items.slice(7)];
         return (
-          <Card
+          <CardGroup
             className='mt-28'
             key={i}
             items={items[i]}
@@ -63,7 +63,7 @@ export default async function MainPage() {
               context: contextList[i],
               image: imageList[i],
             }}
-          ></Card>
+          ></CardGroup>
         );
       })}
     </div>
