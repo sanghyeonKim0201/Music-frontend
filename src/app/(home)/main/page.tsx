@@ -31,30 +31,31 @@ export default async function MainPage() {
   const liekVidoes = await getLikeVideos();
   return (
     <div>
+      <Card
+        items={liekVidoes.items}
+        data={{
+          title: '다시 듣기',
+          context: '김상현',
+          image:
+            'https://lh3.googleusercontent.com/a/ACg8ocJmUux6918duRgQiTCEWHW6eqeGv7JTljNP6uiVwsFn4JKIdMFg=s96-c',
+        }}
+      ></Card>
       <TableCard
         data={{
           title: '빠른 선곡',
           context: '이 노래로 뮤직 스테이션 시작하기',
         }}
         items={liekVidoes.items}
-        className='mb-28'
+        className='mt-28'
       ></TableCard>
-      {new Array(3).fill(null).map((o, i) => {
-        const titleList = ['다시 듣기', '인기곡', '인기곡2'];
-        const contextList = ['김상현', '', '두 번째 인기곡'];
-        const imageList = [
-          'https://lh3.googleusercontent.com/a/ACg8ocJmUux6918duRgQiTCEWHW6eqeGv7JTljNP6uiVwsFn4JKIdMFg=s96-c',
-          '',
-          '',
-        ];
-        const items = [
-          liekVidoes.items,
-          vidoes.items.slice(0, 7),
-          vidoes.items.slice(7),
-        ];
+      {new Array(2).fill(null).map((o, i) => {
+        const titleList = ['인기곡', '인기곡2'];
+        const contextList = ['', '두 번째 인기곡'];
+        const imageList = ['', ''];
+        const items = [vidoes.items.slice(0, 7), vidoes.items.slice(7)];
         return (
           <Card
-            className={i === 0 ? '' : 'mt-28'}
+            className='mt-28'
             key={i}
             items={items[i]}
             data={{
