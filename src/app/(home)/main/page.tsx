@@ -1,4 +1,5 @@
 import Card from '@/components/card';
+import TableCard from '@/components/tableCard';
 import UseFetch from '@/utils/useFetch';
 import { cookies } from 'next/headers';
 
@@ -30,6 +31,14 @@ export default async function MainPage() {
   const liekVidoes = await getLikeVideos();
   return (
     <div>
+      <TableCard
+        data={{
+          title: '빠른 선곡',
+          context: '이 노래로 뮤직 스테이션 시작하기',
+        }}
+        items={liekVidoes.items}
+        className='mb-28'
+      ></TableCard>
       {new Array(3).fill(null).map((o, i) => {
         const titleList = ['다시 듣기', '인기곡', '인기곡2'];
         const contextList = ['김상현', '', '두 번째 인기곡'];

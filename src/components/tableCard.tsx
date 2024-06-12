@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-export default function Card({
+export default function TableCard({
   items,
   data,
   className,
@@ -12,7 +12,9 @@ export default function Card({
   className?: string;
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const pageNumber = 6;
+  const pageNumber = 12;
+  const rows = 3;
+  const cols = 4;
   const itemList: (Videos['items'] | Playlists['items'])[] = [];
 
   for (let i = 0; i < items.length; i += pageNumber) {
@@ -87,43 +89,46 @@ export default function Card({
         </div>
       </div>
 
-      <div className='grid grid-flow-col grid-cols-6'>
-        {new Array(itemList[currentIndex].length).fill(null).map((o, i) => {
-          const item = itemList[currentIndex][i].snippet;
-          const image = item.thumbnails.medium;
-          return (
-            <div key={i} className='flex flex-col mr-5'>
-              <div className='mb-4 h-48 w-48 relative group '>
-                {image ? (
-                  <Image
-                    src={image.url}
-                    alt='video profile'
-                    width={200}
-                    height={100}
-                    className='rounded-md h-full object-cover group-hover:brightness-50'
-                  ></Image>
-                ) : null}
-                <button className=''>
-                  <span className='material-symbols-outlined absolute top-3 right-3 hidden group-hover:block'>
-                    more_vert
-                  </span>
-                </button>
-                <button className=''>
-                  <span
-                    className='material-symbols-outlined rounded-full absolute bottom-5 right-5 p-2 hover:p-[0.6rem] hover:opacity-100 first-line: bg-black opacity-65 group-hover:block hidden'
-                    style={{ fontVariationSettings: "'FILL' 1" }}
-                  >
-                    play_arrow
-                  </span>
-                </button>
+      <div className='grid grid-flow-row grid-rows-3'>
+        {new Array(Math.ceil(itemList[currentIndex].length / (rows + 1)))
+          .fill(null)
+          .map((o, i) => {
+            const col = itemList[currentIndex].slice(
+              i * 4,
+              cols * i + cols,
+            ).length;
+            return (
+              <div className='grid grid-flow-col grid-cols-4 mr-2 mb-4' key={i}>
+                {new Array(col).fill(null).map((obj, j) => {
+                  const item = itemList[currentIndex][j + i * 4].snippet;
+                  const title = item.title;
+                  const context = item.channelTitle;
+                  const image = item.thumbnails.medium.url;
+                  return (
+                    <div className='flex flex-row' key={j}>
+                      <div className='w-14 h-14 mr-4'>
+                        <Image
+                          src={image}
+                          width={100}
+                          height={80}
+                          alt='video profile'
+                          className='h-full object-cover'
+                        ></Image>
+                      </div>
+                      <div className='flex flex-col'>
+                        <div className='flex flex-row truncate font-bold w-48 items-end text-end flex-1'>
+                          {title}
+                        </div>
+                        <div className='flex flex-row truncate font-thin text-zinc-400 items-end text-end flex-1'>
+                          {context}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-              <div className='font-normal truncate'>{item.title}</div>
-              <div className='text-zinc-400 font-light truncate'>
-                {item.channelTitle}
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
     </div>
   );
