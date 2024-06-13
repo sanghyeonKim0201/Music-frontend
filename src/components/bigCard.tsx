@@ -22,7 +22,7 @@ export default function BigCard({
           ></Image>
         ) : null}
         <button className=''>
-          <span className='material-symbols-outlined absolute top-3 right-3 hidden group-hover:block'>
+          <span className='material-symbols-outlined absolute top-3 right-3 hidden group-hover:block hover:bg-zinc-200 hover:bg-opacity-10 rounded-full p-1'>
             more_vert
           </span>
         </button>

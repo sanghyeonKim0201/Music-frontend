@@ -14,8 +14,8 @@ export default function TableCard({
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const pageNumber = 12;
-  const rows = 3;
-  const cols = 4;
+  const rows = 4;
+  const cols = 3;
   const itemList: (Videos['items'] | Playlists['items'])[] = [];
 
   for (let i = 0; i < items.length; i += pageNumber) {
@@ -90,18 +90,21 @@ export default function TableCard({
         </div>
       </div>
 
-      <div className='grid grid-flow-row grid-rows-3'>
-        {new Array(Math.ceil(itemList[currentIndex].length / (rows + 1)))
+      <div className={`grid grid-flow-row grid-rows-${rows}`}>
+        {new Array(Math.ceil(itemList[currentIndex].length / cols))
           .fill(null)
           .map((o, i) => {
             const col = itemList[currentIndex].slice(
-              i * 4,
+              i * cols,
               cols * i + cols,
             ).length;
             return (
-              <div className='grid grid-flow-col grid-cols-4 mr-2 mb-4' key={i}>
+              <div
+                className={`grid grid-flow-col grid-cols-${cols} mr-2 mb-4`}
+                key={i}
+              >
                 {new Array(col).fill(null).map((obj, j) => {
-                  const item = itemList[currentIndex][j + i * 4].snippet;
+                  const item = itemList[currentIndex][j + i * cols].snippet;
                   const title = item.title;
                   const context = item.channelTitle;
                   const image = item.thumbnails.medium.url;
