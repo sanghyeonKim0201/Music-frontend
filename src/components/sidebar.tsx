@@ -98,28 +98,29 @@ export default function SideBar() {
         {new Array(3).fill(null).map((o, i) => {
           const icon = 'home,explore,library_music'.split(',')[i];
           const text = '홈,둘러보기,보관함'.split(',')[i];
+          const url = '/main,/explore,/library'.split(',')[i];
           const openMenu = (
-            <button
-              key={i}
-              className={`flex flex-row py-3 px-5 ${
-                useMenuStore.selectedMenu !== text
-                  ? bgColor.none
-                  : bgColor.selected
-              } rounded-lg w-full`}
-              onClick={(e) => changeMenu(text)}
-            >
-              <span
-                className='material-symbols-outlined mr-5'
-                style={
-                  useMenuStore.selectedMenu === text
-                    ? style.selected
-                    : style.none
-                }
+            <Link key={i} href={url} onClick={(e) => changeMenu(text)}>
+              <button
+                className={`flex flex-row py-3 px-5 ${
+                  useMenuStore.selectedMenu !== text
+                    ? bgColor.none
+                    : bgColor.selected
+                } rounded-lg w-full`}
               >
-                {icon}
-              </span>
-              <p className='text-sm'>{text}</p>
-            </button>
+                <span
+                  className='material-symbols-outlined mr-5'
+                  style={
+                    useMenuStore.selectedMenu === text
+                      ? style.selected
+                      : style.none
+                  }
+                >
+                  {icon}
+                </span>
+                <p className='text-sm'>{text}</p>
+              </button>
+            </Link>
           );
 
           return openMenu;
@@ -152,8 +153,9 @@ export default function SideBar() {
           let context = contextList[i];
 
           return (
-            <button
+            <Link
               key={i}
+              href={''}
               className={`flex flex-row justify-between ${
                 useMenuStore.selectedMenu !== title
                   ? bgColor.none
@@ -161,24 +163,26 @@ export default function SideBar() {
               } rounded-lg py-2 px-5`}
               onClick={(e) => changeMenu(title)}
             >
-              <div className='flex flex-col items-start'>
-                <p className='text-sm'>{title}</p>
-                <div
-                  className='flex flex-row'
-                  style={{
-                    fontVariationSettings:
-                      "'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 48",
-                  }}
-                >
-                  {i === 0 ? (
-                    <span className='material-symbols-outlined text-sm mr-1'>
-                      keep
-                    </span>
-                  ) : null}
-                  <p className='text-[0.7rem] text-zinc-400'>{context}</p>
+              <button>
+                <div className='flex flex-col items-start'>
+                  <p className='text-sm'>{title}</p>
+                  <div
+                    className='flex flex-row'
+                    style={{
+                      fontVariationSettings:
+                        "'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 48",
+                    }}
+                  >
+                    {i === 0 ? (
+                      <span className='material-symbols-outlined text-sm mr-1'>
+                        keep
+                      </span>
+                    ) : null}
+                    <p className='text-[0.7rem] text-zinc-400'>{context}</p>
+                  </div>
                 </div>
-              </div>
-            </button>
+              </button>
+            </Link>
           );
         })}
       </div>
