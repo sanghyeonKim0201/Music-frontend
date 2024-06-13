@@ -57,7 +57,7 @@ export default function CardGroup({
           </div>
         </div>
         <div
-          className={`flex flex-row items-end mr-5 ${
+          className={`flex flex-row items-end ${
             items.length > pageNumber ? 'block' : 'hidden'
           }`}
         >
@@ -88,7 +88,7 @@ export default function CardGroup({
         </div>
       </div>
 
-      <div className='grid grid-flow-col grid-cols-6'>
+      <div className='grid grid-flow-col grid-cols-6 gap-5'>
         {new Array(itemList[currentIndex].length).fill(null).map((o, i) => {
           const item = itemList[currentIndex][i].snippet;
           const image = item.thumbnails.medium;

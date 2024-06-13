@@ -59,7 +59,7 @@ export default function TableCard({
           </div>
         </div>
         <div
-          className={`flex flex-row items-end mr-5 ${
+          className={`flex flex-row items-end ${
             items.length > pageNumber ? 'block' : 'hidden'
           }`}
         >

@@ -4,20 +4,22 @@ export default function SmallCard({
   image,
   title,
   context,
+  className,
 }: {
   image: string;
   title: string;
   context: string;
+  className?: string;
 }) {
   return (
-    <div className='flex flex-row relative group'>
-      <div className='w-14 h-14 mr-4'>
+    <div className={`flex flex-row relative group ${className}`}>
+      <div className='mr-4 flex flex-1'>
         <Image
           src={image}
           width={100}
           height={80}
           alt='video profile'
-          className='h-full object-cover rounded-sm'
+          className='w-full h-full object-cover rounded-sm'
         ></Image>
       </div>
       <div
@@ -35,11 +37,11 @@ export default function SmallCard({
         })}
       </div>
       <div className='flex flex-col'>
-        <div className='flex flex-row whitespace-nowrap text-ellipsis overflow-hidden font-bold w-80 items-end text-end flex-1'>
+        <div className='whitespace-nowrap text-ellipsis overflow-hidden font-bold items-end text-end'>
           {title}
         </div>
-        <div className='flex flex-row truncate font-thin text-zinc-400 items-end text-end flex-1'>
-          {context}
+        <div className='flex flex-row truncate font-thin text-zinc-400 items-end text-end'>
+          {/* {context} */}
         </div>
       </div>
     </div>

@@ -53,19 +53,17 @@ export default function Header() {
               </button>
             </div>
             <div className='mr-6 mt-2'>
-              <button>
-                <Link href={'/main'}>
-                  <Image
-                    priority={true}
-                    src={'/YoutubeMusic.png'}
-                    alt=''
-                    width={80}
-                    height={100}
-                    style={{ width: '5rem', height: '1.5rem' }}
-                    className='w-20 h-6'
-                  />
-                </Link>
-              </button>
+              <Link href={'/main'}>
+                <Image
+                  priority={true}
+                  src={'/YoutubeMusic.png'}
+                  alt=''
+                  width={80}
+                  height={100}
+                  style={{ width: '5rem', height: '1.5rem' }}
+                  className='w-20 h-6'
+                />
+              </Link>
             </div>
           </div>
 

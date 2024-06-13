@@ -4,21 +4,23 @@ export default function BigCard({
   image,
   title,
   context,
+  className,
 }: {
   image: string;
   title: string;
   context: string;
+  className?: string;
 }) {
   return (
-    <div className='flex flex-col mr-5'>
-      <div className='mb-4 h-48 w-48 relative group'>
+    <div className={`flex flex-col ${className}`}>
+      <div className='mb-4 relative group flex flex-1'>
         {image ? (
           <Image
             src={image}
             alt='video profile'
             width={200}
             height={100}
-            className='rounded-md h-full object-cover group-hover:brightness-50'
+            className='rounded-md w-full h-full object-cover group-hover:brightness-50'
           ></Image>
         ) : null}
         <button className=''>
