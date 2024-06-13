@@ -2,6 +2,7 @@
 import { selectionMenu } from '@/lib/feature/menuSlice';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import UseFetch from '@/utils/useFetch';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 export default function SideBar() {
@@ -56,28 +57,30 @@ export default function SideBar() {
         {new Array(3).fill(null).map((o, i) => {
           const icon = 'home,explore,library_music'.split(',')[i];
           const text = '홈,둘러보기,보관함'.split(',')[i];
+          const url = '/main,/explore,/library'.split(',')[i];
           const closeMenu = (
-            <button
-              key={i}
+            <Link
+              href={url}
               className={`py-3 px-3 ${
                 useMenuStore.selectedMenu !== text
                   ? bgColor.none
                   : bgColor.selected
-              } rounded-xl`}
-              onClick={(e) => changeMenu(text)}
+              } rounded-xl flex flex-row justify-center`}
             >
-              <span
-                className='material-symbols-outlined'
-                style={
-                  useMenuStore.selectedMenu === text
-                    ? style.selected
-                    : style.none
-                }
-              >
-                {icon}
-              </span>
-              <p className='text-[0.65rem]'>{text}</p>
-            </button>
+              <button key={i} onClick={(e) => changeMenu(text)}>
+                <span
+                  className='material-symbols-outlined'
+                  style={
+                    useMenuStore.selectedMenu === text
+                      ? style.selected
+                      : style.none
+                  }
+                >
+                  {icon}
+                </span>
+                <p className='text-[0.65rem]'>{text}</p>
+              </button>
+            </Link>
           );
 
           return closeMenu;

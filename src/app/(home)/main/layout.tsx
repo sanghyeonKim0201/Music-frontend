@@ -2,7 +2,7 @@
 
 import { useAppSelector } from '@/lib/hooks';
 
-export default function MainPageLayout({
+export default function MainLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
