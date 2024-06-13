@@ -37,6 +37,7 @@ export default function SideBar() {
   }, []);
 
   function changeMenu(payload: string) {
+    console.log('click');
     dispatch(selectionMenu(payload));
   }
 
@@ -60,14 +61,16 @@ export default function SideBar() {
           const url = '/main,/explore,/library'.split(',')[i];
           const closeMenu = (
             <Link
+              key={i}
               href={url}
+              onClick={(e) => changeMenu(text)}
               className={`py-3 px-3 ${
                 useMenuStore.selectedMenu !== text
                   ? bgColor.none
                   : bgColor.selected
               } rounded-xl flex flex-row justify-center`}
             >
-              <button key={i} onClick={(e) => changeMenu(text)}>
+              <button>
                 <span
                   className='material-symbols-outlined'
                   style={
