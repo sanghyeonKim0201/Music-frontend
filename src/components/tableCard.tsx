@@ -100,7 +100,7 @@ export default function TableCard({
             ).length;
             return (
               <div
-                className={`grid grid-flow-col grid-cols-${cols} mr-2 mb-4`}
+                className={`grid grid-flow-col grid-cols-${cols} mr-2 mb-4 gap-5`}
                 key={i}
               >
                 {new Array(col).fill(null).map((obj, j) => {

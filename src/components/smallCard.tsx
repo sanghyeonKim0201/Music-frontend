@@ -13,7 +13,7 @@ export default function SmallCard({
 }) {
   return (
     <div className={`flex flex-row relative group ${className}`}>
-      <div className='mr-4 flex flex-1'>
+      <div className='mr-4 w-12 h-12'>
         <Image
           src={image}
           width={100}
@@ -23,7 +23,7 @@ export default function SmallCard({
         ></Image>
       </div>
       <div
-        className={`absolute group-hover:flex hidden flex-row top-0 right-0 bg-black h-14`}
+        className={`absolute group-hover:flex hidden flex-row top-0 right-0 bg-black`}
       >
         {new Array(3).fill(null).map((o, i) => {
           const iconList = ['thumb_up', 'thumb_down', 'more_vert'];
@@ -36,13 +36,11 @@ export default function SmallCard({
           );
         })}
       </div>
-      <div className='flex flex-col'>
-        <div className='whitespace-nowrap text-ellipsis overflow-hidden font-bold items-end text-end'>
+      <div className='flex flex-col text-start truncate'>
+        <div className='flex flex-row truncate font-bold min-w-80 max-w-80'>
           {title}
         </div>
-        <div className='flex flex-row truncate font-thin text-zinc-400 items-end text-end'>
-          {/* {context} */}
-        </div>
+        <div className='truncate font-thin text-zinc-400 '>{context}</div>
       </div>
     </div>
   );
