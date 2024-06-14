@@ -25,12 +25,11 @@ export default function SmallCard({
       <div
         className={`absolute group-hover:flex hidden flex-row top-0 right-0 bg-black`}
       >
-        {new Array(3).fill(null).map((o, i) => {
-          const iconList = ['thumb_up', 'thumb_down', 'more_vert'];
+        {['thumb_up', 'thumb_down', 'more_vert'].map((o, i) => {
           return (
             <button key={i} className='items-center flex flex-row mr-5'>
               <span className='material-symbols-outlined hover:bg-zinc-800 p-2 rounded-full'>
-                {iconList[i]}
+                {o}
               </span>
             </button>
           );

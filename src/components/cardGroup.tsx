@@ -89,8 +89,8 @@ export default function CardGroup({
       </div>
 
       <div className='grid grid-flow-col grid-cols-6 gap-5'>
-        {new Array(itemList[currentIndex].length).fill(null).map((o, i) => {
-          const item = itemList[currentIndex][i].snippet;
+        {itemList[currentIndex].map((o, i) => {
+          const item = o.snippet;
           const image = item.thumbnails.medium;
           return (
             <BigCard

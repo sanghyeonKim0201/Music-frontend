@@ -1,3 +1,3 @@
 export default function LibraryPage() {
-  return <h1>asdasd</h1>;
+  return <div>{new Array()}</div>;
 }

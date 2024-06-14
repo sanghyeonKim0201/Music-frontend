@@ -94,17 +94,14 @@ export default function TableCard({
         {new Array(Math.ceil(itemList[currentIndex].length / cols))
           .fill(null)
           .map((o, i) => {
-            const col = itemList[currentIndex].slice(
-              i * cols,
-              cols * i + cols,
-            ).length;
+            const col = itemList[currentIndex].slice(i * cols, cols * i + cols);
             return (
               <div
                 className={`grid grid-flow-col grid-cols-${cols} mr-2 mb-4 gap-5`}
                 key={i}
               >
-                {new Array(col).fill(null).map((obj, j) => {
-                  const item = itemList[currentIndex][j + i * cols].snippet;
+                {col.map((obj, j) => {
+                  const item = obj.snippet;
                   const title = item.title;
                   const context = item.channelTitle;
                   const image = item.thumbnails.medium.url;

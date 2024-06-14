@@ -75,38 +75,34 @@ export default function LibraryLayout({
   return (
     <div className='w-11/12'>
       <div className='flex flex-row text-sm border-b border-zinc-600 border-opacity-70 mb-8'>
-        {
-          new Array(
-            ['보관함', '오프라인 저장'].map((o, i) => {
-              const url = ['/library', '/library/offline'][i];
-              return (
-                <Link
-                  href={url}
-                  key={i}
-                  onClick={(e) => {
-                    const click: 'storage' | 'offline' = ['storage', 'offline'][
-                      i
-                    ] as 'storage' | 'offline';
-                    setSelectedSubMenuIndex(0);
-                    setSelectedMainMenuIndex(click);
-                  }}
-                >
-                  <button
-                    className={`mx-4 pb-2  ${
-                      ['storage', 'offline'][i] === selectedMainMenuIndex
-                        ? 'border-b-2 border-white text-white border-opacity-100'
-                        : 'border-b-1 border-zinc-600 border-opacity-70 text-zinc-600'
-                    }`}
-                  >
-                    {selectedMainMenuIndex === 'offline' && i === 1
-                      ? o + ' 콘텐츠'
-                      : o}
-                  </button>
-                </Link>
-              );
-            }),
-          )
-        }
+        {['보관함', '오프라인 저장'].map((o, i) => {
+          const url = ['/library', '/library/offline'][i];
+          return (
+            <Link
+              href={url}
+              key={i}
+              onClick={(e) => {
+                const click: 'storage' | 'offline' = ['storage', 'offline'][
+                  i
+                ] as 'storage' | 'offline';
+                setSelectedSubMenuIndex(0);
+                setSelectedMainMenuIndex(click);
+              }}
+            >
+              <button
+                className={`mx-4 pb-2  ${
+                  ['storage', 'offline'][i] === selectedMainMenuIndex
+                    ? 'border-b-2 border-white text-white border-opacity-100'
+                    : 'border-b-1 border-zinc-600 border-opacity-70 text-zinc-600'
+                }`}
+              >
+                {selectedMainMenuIndex === 'offline' && i === 1
+                  ? o + ' 콘텐츠'
+                  : o}
+              </button>
+            </Link>
+          );
+        })}
       </div>
 
       <div className='flex flex-row justify-between ml-5'>
@@ -160,7 +156,7 @@ export default function LibraryLayout({
             : null
           : donwloadSettingButton}
       </div>
-      <div>{children}</div>
+      <div className='ml-5 mt-10'>{children}</div>
     </div>
   );
 }
