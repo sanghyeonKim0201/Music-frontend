@@ -8,6 +8,7 @@ import { cookies, headers } from 'next/headers';
 import Payload from '@/components/payload';
 import Header from '@/components/header';
 import SideBar from '@/components/sidebar';
+import { usePathname } from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -37,7 +38,7 @@ export default function RootLayout({
             <Header />
             <div className='h-full flex flex-row'>
               <SideBar />
-              <div className='pt-28 pl-44 w-full'>{children}</div>
+              <div className='pt-20 pl-44 w-full'>{children}</div>
             </div>
           </div>
         </StoreProvider>
