@@ -1,14 +1,166 @@
+'use client';
+
+import Link from 'next/link';
+import { useState } from 'react';
+
 export default function LibraryLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const [selectedMainMenuIndex, setSelectedMainMenuIndex] = useState<
+    'storage' | 'offline'
+  >('storage');
+  const [selectedSubMenuIndex, setSelectedSubMenuIndex] = useState<number>(0);
+
+  const menus = {
+    storage: [
+      {
+        name: 'Main',
+        children: ['재생목록', '노래', '앨범', '아티스트', '팟캐스트'],
+        filters: ['최근 활동', '최근에 저장됨', '최근 재생한 음악'],
+      },
+      {
+        name: '재생목록',
+        children: ['close', '재생목록'],
+        filters: ['최근에 저장됨', '가나다순', '가나다 역순'],
+      },
+      {
+        name: '노래',
+        children: ['close', '노래'],
+        filters: ['최근에 저장됨', '가나다순', '가나다 역순'],
+      },
+      {
+        name: '앨범',
+        children: ['close', '앨범'],
+        filters: ['최근에 저장됨', '가나다순', '가나다역순'],
+      },
+      {
+        name: '아티스트',
+        children: ['close', '아티스트', '구독'],
+        filters: [
+          '최근에 저장됨',
+          '가나다순',
+          '가나다 역순',
+          '가장 곡이 많은 아티스트',
+        ],
+      },
+      {
+        name: '팟캐스트',
+        children: ['close', '팟캐스트', '채널'],
+        filters: ['최근에 저장됨', '가나다순', '가나다 역순'],
+      },
+    ],
+    offline: [
+      { name: 'Main', children: ['Paylists', 'Podcasts', 'Songs', 'Albums'] },
+      { name: 'Playlists', children: ['close', 'Playlists'] },
+      { name: 'Podcasts', children: ['close', 'Podcasts'] },
+      { name: 'Songs', children: ['close', 'Songs'] },
+      { name: 'Albums', children: ['close', 'Albums'] },
+    ],
+  };
+
+  const filterDropdown = (
+    <button className='flex flex-row justify-between text-sm items-center rounded-full bg-zinc-800 border-zinc-700 border px-5 py-2 w-[14%]'>
+      <div className=''>{menus.storage[selectedSubMenuIndex].filters?.[0]}</div>
+      <span className='material-symbols-outlined'>arrow_drop_down</span>
+    </button>
+  );
+  const donwloadSettingButton = (
+    <button className='flex flex-row gap-10 text-sm items-center rounded-full px-5 py-2 hover:bg-blue-400 hover:bg-opacity-20'>
+      <div className='text-blue-500'>Downloads Settings</div>
+    </button>
+  );
+
   return (
-    <div className='pt-1'>
-      <div className='flex flex-row gap-5 w-11/12 border-b mr-5'>
-        <div>보관함</div>
-        <div>오프라인 저장</div>
+    <div className='w-11/12'>
+      <div className='flex flex-row text-sm border-b border-zinc-600 border-opacity-70 mb-8'>
+        {
+          new Array(
+            ['보관함', '오프라인 저장'].map((o, i) => {
+              const url = ['/library', '/library/offline'][i];
+              return (
+                <Link
+                  href={url}
+                  key={i}
+                  onClick={(e) => {
+                    const click: 'storage' | 'offline' = ['storage', 'offline'][
+                      i
+                    ] as 'storage' | 'offline';
+                    setSelectedSubMenuIndex(0);
+                    setSelectedMainMenuIndex(click);
+                  }}
+                >
+                  <button
+                    className={`mx-4 pb-2  ${
+                      ['storage', 'offline'][i] === selectedMainMenuIndex
+                        ? 'border-b-2 border-white text-white border-opacity-100'
+                        : 'border-b-1 border-zinc-600 border-opacity-70 text-zinc-600'
+                    }`}
+                  >
+                    {selectedMainMenuIndex === 'offline' && i === 1
+                      ? o + ' 콘텐츠'
+                      : o}
+                  </button>
+                </Link>
+              );
+            }),
+          )
+        }
       </div>
+
+      <div className='flex flex-row justify-between ml-5'>
+        <div className='flex flex-row gap-5'>
+          {new Array(
+            menus[selectedMainMenuIndex][selectedSubMenuIndex],
+          ).flatMap((o, i) => {
+            const isSelected = o.name !== 'Main';
+            return o.children.map((x, j) => {
+              return (
+                <button
+                  key={j}
+                  className={`text-sm  rounded-lg ${
+                    // 한글과 영어 폰트의 크기가 달라서 고정 시킴
+                    selectedMainMenuIndex === 'storage'
+                      ? 'my-[0.3rem]'
+                      : 'my-[0.2rem]'
+                  } px-3 ${
+                    isSelected && (j === 0 || j === 1)
+                      ? 'bg-white text-black'
+                      : 'bg-zinc-800 hover:bg-zinc-700 '
+                  }`}
+                  onClick={(e) => {
+                    let index = j + 1;
+                    if (o.name === x) {
+                      index = 0;
+                    }
+                    if (x === 'close') {
+                      index = 0;
+                    }
+                    if (isSelected && j > 1) return;
+                    setSelectedSubMenuIndex(index);
+                  }}
+                >
+                  <span
+                    className={`flex items-center ${
+                      x === 'close' ? 'material-symbols-outlined' : ''
+                    } `}
+                  >
+                    {x}
+                  </span>
+                </button>
+              );
+            });
+          })}
+        </div>
+
+        {selectedMainMenuIndex === 'storage'
+          ? menus['storage'][selectedSubMenuIndex].filters
+            ? filterDropdown
+            : null
+          : donwloadSettingButton}
+      </div>
+      <div>{children}</div>
     </div>
   );
 }

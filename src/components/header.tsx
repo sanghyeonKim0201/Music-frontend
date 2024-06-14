@@ -67,7 +67,7 @@ export default function Header() {
             </div>
           </div>
 
-          <div className='w-max flex items-center rounded-lg bg-zinc-800 border-[1px] border-[#FFFFFF80] p-2'>
+          <div className='w-max flex items-center rounded-lg bg-zinc-800 border-[1px] border-zinc-700 p-2'>
             <span
               className='material-symbols-outlined mr-3 ml-2'
               style={{ fontVariationSettings: "'wght' 200" }}
