@@ -37,7 +37,7 @@ export default function SmallCard({
         })}
       </div>
       <div className='flex flex-col text-start truncate w-80 2xl:w-96'>
-        <div className='flex flex-row truncate font-bold '>{title}</div>
+        <div className='truncate font-bold'>{title}</div>
         <div className='truncate font-thin text-zinc-400 '>{context}</div>
       </div>
     </div>
