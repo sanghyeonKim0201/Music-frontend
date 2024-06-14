@@ -37,7 +37,6 @@ export default function SideBar() {
   }, []);
 
   function changeMenu(payload: string) {
-    console.log('click');
     dispatch(selectionMenu(payload));
   }
 
