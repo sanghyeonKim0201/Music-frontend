@@ -18,25 +18,36 @@ export default function LibraryLayout({
       {
         name: 'Main',
         children: ['재생목록', '노래', '앨범', '아티스트', '팟캐스트'],
+        url: [
+          '/library/playlists',
+          '/library',
+          '/library',
+          '/library',
+          '/library',
+        ],
         filters: ['최근 활동', '최근에 저장됨', '최근 재생한 음악'],
       },
       {
         name: '재생목록',
         children: ['close', '재생목록'],
+        url: ['/library', '/library'],
         filters: ['최근에 저장됨', '가나다순', '가나다 역순'],
       },
       {
         name: '노래',
         children: ['close', '노래'],
+        url: ['/library', '/library'],
         filters: ['최근에 저장됨', '가나다순', '가나다 역순'],
       },
       {
         name: '앨범',
         children: ['close', '앨범'],
+        url: ['/library', '/library'],
         filters: ['최근에 저장됨', '가나다순', '가나다역순'],
       },
       {
         name: '아티스트',
+        url: ['/library', '/library', '/library'],
         children: ['close', '아티스트', '구독'],
         filters: [
           '최근에 저장됨',
@@ -47,16 +58,37 @@ export default function LibraryLayout({
       },
       {
         name: '팟캐스트',
+        url: ['/library', '/library', '/library'],
         children: ['close', '팟캐스트', '채널'],
         filters: ['최근에 저장됨', '가나다순', '가나다 역순'],
       },
     ],
     offline: [
-      { name: 'Main', children: ['Paylists', 'Podcasts', 'Songs', 'Albums'] },
-      { name: 'Playlists', children: ['close', 'Playlists'] },
-      { name: 'Podcasts', children: ['close', 'Podcasts'] },
-      { name: 'Songs', children: ['close', 'Songs'] },
-      { name: 'Albums', children: ['close', 'Albums'] },
+      {
+        name: 'Main',
+        children: ['Paylists', 'Podcasts', 'Songs', 'Albums'],
+        url: ['/library', '/library', '/library', '/library'],
+      },
+      {
+        name: 'Playlists',
+        children: ['close', 'Playlists'],
+        url: ['/library', '/library'],
+      },
+      {
+        name: 'Podcasts',
+        children: ['close', 'Podcasts'],
+        url: ['/library', '/library'],
+      },
+      {
+        name: 'Songs',
+        children: ['close', 'Songs'],
+        url: ['/library', '/library'],
+      },
+      {
+        name: 'Albums',
+        children: ['close', 'Albums'],
+        url: ['/library', '/library'],
+      },
     ],
   };
 
@@ -113,18 +145,11 @@ export default function LibraryLayout({
             const isSelected = o.name !== 'Main';
             return o.children.map((x, j) => {
               return (
-                <button
+                <Link
+                  href={
+                    menus[selectedMainMenuIndex][selectedSubMenuIndex].url[j]
+                  }
                   key={j}
-                  className={`text-sm  rounded-lg ${
-                    // 한글과 영어 폰트의 크기가 달라서 고정 시킴
-                    selectedMainMenuIndex === 'storage'
-                      ? 'my-[0.3rem]'
-                      : 'my-[0.2rem]'
-                  } px-3 ${
-                    isSelected && (j === 0 || j === 1)
-                      ? 'bg-white text-black'
-                      : 'bg-zinc-800 hover:bg-zinc-700 '
-                  }`}
                   onClick={(e) => {
                     let index = j + 1;
                     if (o.name === x) {
@@ -137,14 +162,27 @@ export default function LibraryLayout({
                     setSelectedSubMenuIndex(index);
                   }}
                 >
-                  <span
-                    className={`flex items-center ${
-                      x === 'close' ? 'material-symbols-outlined' : ''
-                    } `}
+                  <button
+                    className={`text-sm  rounded-lg ${
+                      // 한글과 영어 폰트의 크기가 달라서 고정 시킴
+                      selectedMainMenuIndex === 'storage'
+                        ? 'my-[0.3rem]'
+                        : 'my-[0.2rem]'
+                    } px-3 py-1 ${
+                      isSelected && (j === 0 || j === 1)
+                        ? 'bg-white text-black'
+                        : 'bg-zinc-800 hover:bg-zinc-700 '
+                    }`}
                   >
-                    {x}
-                  </span>
-                </button>
+                    <span
+                      className={`flex items-center ${
+                        x === 'close' ? 'material-symbols-outlined' : ''
+                      } `}
+                    >
+                      {x}
+                    </span>
+                  </button>
+                </Link>
               );
             });
           })}
