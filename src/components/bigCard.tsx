@@ -18,8 +18,8 @@ export default function BigCard({
           <Image
             src={image}
             alt='video profile'
-            width={300}
-            height={300}
+            width={152}
+            height={152}
             className='rounded-md w-full h-full object-cover group-hover:brightness-50'
           ></Image>
         ) : null}
