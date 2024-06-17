@@ -18,8 +18,8 @@ export default function BigCard({
           <Image
             src={image}
             alt='video profile'
-            width={200}
-            height={100}
+            width={50}
+            height={50}
             className='rounded-md w-full h-full object-cover group-hover:brightness-50'
           ></Image>
         ) : null}
@@ -37,8 +37,8 @@ export default function BigCard({
           </span>
         </button>
       </div>
-      <div className='font-normal truncate'>{title}</div>
-      <div className='text-zinc-400 font-light truncate'>{context}</div>
+      <div className='font-normal text-sm truncate'>{title}</div>
+      <div className='text-sm text-zinc-400 font-light '>{context}</div>
     </div>
   );
 }
