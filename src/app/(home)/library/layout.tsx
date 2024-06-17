@@ -20,7 +20,7 @@ export default function LibraryLayout({
         children: ['재생목록', '노래', '앨범', '아티스트', '팟캐스트'],
         url: [
           '/library/playlists',
-          '/library',
+          '/library/songs',
           '/library',
           '/library',
           '/library',
@@ -106,7 +106,7 @@ export default function LibraryLayout({
 
   return (
     <div className='w-11/12'>
-      <div className='flex flex-row text-sm border-b border-zinc-600 border-opacity-70 mb-8'>
+      <div className='flex flex-row text-sm border-b border-zinc-800 mb-8'>
         {['보관함', '오프라인 저장'].map((o, i) => {
           const url = ['/library', '/library/offline'][i];
           return (
@@ -125,7 +125,7 @@ export default function LibraryLayout({
                 className={`mx-4 pb-2  ${
                   ['storage', 'offline'][i] === selectedMainMenuIndex
                     ? 'border-b-2 border-white text-white border-opacity-100'
-                    : 'border-b-1 border-zinc-600 border-opacity-70 text-zinc-600'
+                    : 'border-b-1 border-zinc-800 text-zinc-600'
                 }`}
               >
                 {selectedMainMenuIndex === 'offline' && i === 1
@@ -163,7 +163,7 @@ export default function LibraryLayout({
                   }}
                 >
                   <button
-                    className={`text-sm  rounded-lg ${
+                    className={`text-sm flex flex-row justify-center items-center rounded-lg ${
                       // 한글과 영어 폰트의 크기가 달라서 고정 시킴
                       selectedMainMenuIndex === 'storage'
                         ? 'my-[0.3rem]'
@@ -172,7 +172,7 @@ export default function LibraryLayout({
                       isSelected && (j === 0 || j === 1)
                         ? 'bg-white text-black'
                         : 'bg-zinc-800 hover:bg-zinc-700 '
-                    }`}
+                    } ${isSelected && j === 0 ? 'my-1 pb-0' : ''}`}
                   >
                     <span
                       className={`flex items-center ${
