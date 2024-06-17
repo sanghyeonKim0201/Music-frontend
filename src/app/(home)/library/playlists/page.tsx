@@ -99,7 +99,7 @@ export default async function PlaylistsPage() {
         <div className='mb-4 relative group flex flex-1'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
-            viewBox='0 0 512 512'
+            viewBox='-60 0 512 512'
             className='bg-white rounded-md justify-center items-center'
           >
             <path
