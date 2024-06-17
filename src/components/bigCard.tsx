@@ -8,7 +8,7 @@ export default function BigCard({
 }: {
   image: string;
   title: string;
-  context: string;
+  context: string | React.JSX.Element;
   className?: string;
 }) {
   return (
@@ -18,8 +18,8 @@ export default function BigCard({
           <Image
             src={image}
             alt='video profile'
-            width={50}
-            height={50}
+            width={300}
+            height={300}
             className='rounded-md w-full h-full object-cover group-hover:brightness-50'
           ></Image>
         ) : null}
@@ -38,7 +38,7 @@ export default function BigCard({
         </button>
       </div>
       <div className='font-normal text-sm truncate'>{title}</div>
-      <div className='text-sm text-zinc-400 font-light '>{context}</div>
+      <div className='text-sm text-zinc-400 font-light truncate'>{context}</div>
     </div>
   );
 }
