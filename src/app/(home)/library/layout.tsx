@@ -108,7 +108,7 @@ export default function LibraryLayout({
     <div className='w-11/12'>
       <div className='flex flex-row text-sm border-b border-zinc-800 mb-8'>
         {['보관함', '오프라인 저장'].map((o, i) => {
-          const url = ['/library', '/library/offline'][i];
+          const url = ['/library/', '/library/offline'][i];
           return (
             <Link
               href={url}

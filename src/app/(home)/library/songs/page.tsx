@@ -13,19 +13,42 @@ async function getLikeVideoData(): Promise<Videos> {
   });
   return await videos.json();
 }
-function mapping(likeVideos: Videos) {
-  return likeVideos.items.map((o) => {
-    return {
-      title: o.snippet.title,
-      artist: o.snippet.channelTitle,
-      image: o.snippet.thumbnails.medium.url,
-      album: o.snippet.channelTitle,
-    };
+async function getPlaylistItems(): Promise<PlaylistItems[]> {
+  const playlists = await UseFetch('/api/youtube/playlists/items', {
+    headers: {
+      Cookie: `accessToken=${accessToken}; refreshToken=${refreshToken}`,
+    },
   });
+
+  return await playlists.json();
+}
+function dataToMap(likeVideos: Videos, playlistItems: PlaylistItems[]) {
+  const itmes = [likeVideos, ...playlistItems];
+  console.log(itmes);
+  return itmes.flatMap((o) => {
+    return o.items.map((obj) => ({
+      id: obj.id,
+      title: obj.snippet.title,
+      artist: obj.snippet.channelTitle,
+      image: obj.snippet.thumbnails.medium.url,
+      album: obj.snippet.channelTitle,
+    }));
+  });
+  // return likeVideos.items.map((o) => {
+  //   return {
+  //     id: o.id,
+  //     title: o.snippet.title,
+  //     artist: o.snippet.channelTitle,
+  //     image: o.snippet.thumbnails.medium.url,
+  //     album: o.snippet.channelTitle,
+  //   };
+  // });
 }
 export default async function SongsPage() {
   const likeVideos = await getLikeVideoData();
-  const items = mapping(likeVideos);
+  const playlistItems = await getPlaylistItems();
+  const items = dataToMap(likeVideos, playlistItems);
+
   return (
     <div className='flex flex-col'>
       <div className='flex flex-row items-center w-full border-b border-zinc-800 pb-3 mb-3'>
@@ -42,6 +65,7 @@ export default async function SongsPage() {
       {items.map((o, i) => {
         return (
           <SongRow
+            id={o.id}
             image={o.image}
             title={o.title}
             album={o.album}

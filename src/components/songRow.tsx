@@ -1,12 +1,13 @@
 import Image from 'next/image';
 
 export default function SongRow({
+  id,
   image,
   artist,
   album,
   title,
-  time,
 }: {
+  id: string;
   image: string;
   artist?: string;
   title: string;

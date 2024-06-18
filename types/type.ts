@@ -18,6 +18,25 @@ interface Playlists {
     };
   }[];
 }
+interface PlaylistItems {
+  kind: string;
+  etag: string;
+  items: {
+    kind: string;
+    etag: string;
+    id: string;
+    snippet: Snippet & {
+      playlistId: string;
+      position: number;
+      resourceId: {
+        kind: string;
+        videoId: string;
+      };
+      videoOwnerChannelTitle: string;
+      videoOwnerChannelId: string;
+    };
+  }[];
+}
 interface Videos {
   kind: string;
   etag: string;
