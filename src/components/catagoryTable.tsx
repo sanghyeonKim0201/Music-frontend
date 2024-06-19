@@ -3,23 +3,39 @@ import Image from 'next/image';
 import { useState } from 'react';
 import SmallCard from './smallCard';
 
-export default function TableCard({
-  items,
-  data,
-  className,
-  ranking,
-}: {
-  items: Videos['items'] | Playlists['items'];
-  data: { image?: string; context?: string; title: string };
-  className?: string;
-  ranking?: boolean;
-}) {
+export default function CategoryTable({ className }: { className?: string }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const pageNumber = 12;
+  const pageNumber = 24;
   const rows = 4;
-  const cols = 3;
-  const itemList: (Videos['items'] | Playlists['items'])[] = [];
-
+  const cols = 6;
+  const items = [
+    { text: '계절 변화를 위한 테마', color: 'border-amber-200' },
+    { text: '사랑 노래', color: 'border-red-500' },
+    { text: '국내 R&B', color: 'border-violet-400' },
+    { text: '록', color: 'border-red-500' },
+    { text: '힘이 필요할 때', color: 'border-amber-200' },
+    { text: '잠잘 때', color: 'border-violet-400' },
+    { text: '연말연시', color: 'border-zinc-600' },
+    { text: '2010년대', color: 'border-emerald-200' },
+    { text: '국내 록/얼터너티브', color: 'border-red-500' },
+    { text: 'R&B 및 소울', color: 'border-violet-400' },
+    { text: 'OST & 뮤지컬', color: 'border-cyan-300' },
+    { text: '2000년대', color: 'border-emerald-200' },
+    { text: '국내 발라드', color: 'border-indigo-200' },
+    { text: '힙합', color: 'border-amber-600' },
+    { text: '슬픔', color: 'border-zinc-600' },
+    { text: '국내 댄스', color: 'border-blue-500' },
+    { text: '파티 음악', color: 'border-violet-400' },
+    { text: '운동할 때', color: 'border-amber-400' },
+    { text: '한국 힙합', color: 'border-amber-600' },
+    { text: '인디 & 얼터너티브', color: 'border-zinc-500' },
+    { text: '출퇴근 & 등하교', color: 'border-yellow-500' },
+    { text: '편안한 분위기', color: 'border-indigo-200' },
+    { text: '행복한 기분', color: 'border-emerald-400' },
+    { text: '1990년대', color: 'border-green-400' },
+    { text: '1980년대', color: 'border-green-500' },
+  ];
+  const itemList: any[][] = [];
   for (let i = 0; i < items.length; i += pageNumber) {
     itemList.push(items.slice(i, i + pageNumber));
   }
@@ -40,23 +56,9 @@ export default function TableCard({
     <div className={`${className} mr-20`}>
       <div className='flex flex-row justify-between mb-4'>
         <div className='flex flex-row'>
-          <div>
-            {data.image && data.image !== '' ? (
-              <Image
-                src={data.image}
-                alt='profile'
-                width={55}
-                height={55}
-                className='rounded-full bg-white mr-5'
-              ></Image>
-            ) : null}
-          </div>
           <div className='flex flex-col'>
-            <div className='flex flex-row text-zinc-400 font-light items-end '>
-              {data.context ?? null}
-            </div>
             <div className='text-3xl font-bold flex flex-row items-end text-end flex-1'>
-              {data.title}
+              분위기 및 장르
             </div>
           </div>
         </div>
@@ -103,35 +105,13 @@ export default function TableCard({
                 key={i}
               >
                 {col.map((obj, j) => {
-                  const item = obj.snippet;
-                  const title = item.title;
-                  const context = item.channelTitle;
-                  const image = item.thumbnails.medium.url;
-
                   return (
-                    <SmallCard
+                    <div
                       key={j}
-                      image={image}
-                      title={title}
-                      context={context}
-                      ranking={
-                        ranking
-                          ? {
-                              number:
-                                j *
-                                  Math.ceil(
-                                    itemList[currentIndex].length / cols,
-                                  ) +
-                                i +
-                                1 +
-                                pageNumber * currentIndex,
-                              status: ['up', 'down', 'maintain'][
-                                Math.floor(Math.random() * 3)
-                              ] as 'up' | 'down' | 'maintain',
-                            }
-                          : undefined
-                      }
-                    ></SmallCard>
+                      className={`border-l-4 bg-zinc-800 rounded-sm px-3 py-3 text-sm ${obj.color}`}
+                    >
+                      {obj.text}
+                    </div>
                   );
                 })}
               </div>

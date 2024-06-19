@@ -3,5 +3,5 @@ export default function ExploreLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className='pt-8'>{children}</div>;
+  return <div className='pt-8 mr-28'>{children}</div>;
 }

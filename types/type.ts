@@ -52,6 +52,25 @@ interface Subscriber {
     snippet: Snippet;
   }[];
 }
+interface RecentVideos {
+  kind: string;
+  etag: string;
+  nextPageToken: string;
+  regionCode: string;
+  pageInfo: {
+    totalResults: number;
+    resultsPerPage: number;
+  };
+  items: {
+    kind: string;
+    etag: string;
+    id: {
+      kind: string;
+      videoId: string;
+    };
+    snippet: Snippet & { publishTime: Date; liveBroadcastContent: string };
+  }[];
+}
 interface Videos {
   kind: string;
   etag: string;

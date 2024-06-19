@@ -8,13 +8,17 @@ export default function CardGroup({
   data,
   className,
 }: {
-  items: Videos['items'] | Playlists['items'];
+  items: Videos['items'] | Playlists['items'] | RecentVideos['items'];
   data: { image?: string; context?: string; title: string };
   className?: string;
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const pageNumber = 6;
-  const itemList: (Videos['items'] | Playlists['items'])[] = [];
+  const itemList: (
+    | Videos['items']
+    | Playlists['items']
+    | RecentVideos['items']
+  )[] = [];
 
   for (let i = 0; i < items.length; i += pageNumber) {
     itemList.push(items.slice(i, i + pageNumber));
