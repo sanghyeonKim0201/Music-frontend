@@ -1,4 +1,4 @@
-export default function OfflineLayout({
+export default function ArtistLayout({
   children,
 }: {
   children: React.ReactNode;

@@ -37,6 +37,21 @@ interface PlaylistItems {
     };
   }[];
 }
+interface Subscriber {
+  kind: string;
+  etag: string;
+  nextPageToken: string;
+  pageInfo: {
+    totalResults: number;
+    resultsPerPage: number;
+  };
+  items: {
+    kind: string;
+    etag: string;
+    id: string;
+    snippet: Snippet;
+  }[];
+}
 interface Videos {
   kind: string;
   etag: string;

@@ -8,86 +8,41 @@ export default function LibraryLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [selectedMainMenuIndex, setSelectedMainMenuIndex] = useState<
-    'storage' | 'offline'
-  >('storage');
+  const [selectedMainMenuIndex, setSelectedMainMenuIndex] =
+    useState<'storage'>('storage');
   const [selectedSubMenuIndex, setSelectedSubMenuIndex] = useState<number>(0);
 
   const menus = {
     storage: [
       {
         name: 'Main',
-        children: ['재생목록', '노래', '앨범', '아티스트', '팟캐스트'],
-        url: [
-          '/library/playlists',
-          '/library/songs',
-          '/library',
-          '/library',
-          '/library',
-        ],
+        children: ['재생목록', '노래', '아티스트'],
+        url: ['/library/playlists', '/library/songs', '/library/artist'],
         filters: ['최근 활동', '최근에 저장됨', '최근 재생한 음악'],
       },
       {
         name: '재생목록',
         children: ['close', '재생목록'],
-        url: ['/library', '/library'],
+        url: ['/library/', '/library/'],
         filters: ['최근에 저장됨', '가나다순', '가나다 역순'],
       },
       {
         name: '노래',
         children: ['close', '노래'],
-        url: ['/library', '/library'],
+        url: ['/library/', '/library/'],
         filters: ['최근에 저장됨', '가나다순', '가나다 역순'],
       },
-      {
-        name: '앨범',
-        children: ['close', '앨범'],
-        url: ['/library', '/library'],
-        filters: ['최근에 저장됨', '가나다순', '가나다역순'],
-      },
+
       {
         name: '아티스트',
-        url: ['/library', '/library', '/library'],
-        children: ['close', '아티스트', '구독'],
+        url: ['/library/', '/library/', '/library/'],
+        children: ['close', '구독'],
         filters: [
           '최근에 저장됨',
           '가나다순',
           '가나다 역순',
           '가장 곡이 많은 아티스트',
         ],
-      },
-      {
-        name: '팟캐스트',
-        url: ['/library', '/library', '/library'],
-        children: ['close', '팟캐스트', '채널'],
-        filters: ['최근에 저장됨', '가나다순', '가나다 역순'],
-      },
-    ],
-    offline: [
-      {
-        name: 'Main',
-        children: ['Paylists', 'Podcasts', 'Songs', 'Albums'],
-        url: ['/library', '/library', '/library', '/library'],
-      },
-      {
-        name: 'Playlists',
-        children: ['close', 'Playlists'],
-        url: ['/library', '/library'],
-      },
-      {
-        name: 'Podcasts',
-        children: ['close', 'Podcasts'],
-        url: ['/library', '/library'],
-      },
-      {
-        name: 'Songs',
-        children: ['close', 'Songs'],
-        url: ['/library', '/library'],
-      },
-      {
-        name: 'Albums',
-        children: ['close', 'Albums'],
-        url: ['/library', '/library'],
       },
     ],
   };
@@ -107,16 +62,16 @@ export default function LibraryLayout({
   return (
     <div className='w-11/12'>
       <div className='flex flex-row text-sm border-b border-zinc-800 mb-8'>
-        {['보관함', '오프라인 저장'].map((o, i) => {
+        {['보관함'].map((o, i) => {
           const url = ['/library/', '/library/offline'][i];
           return (
             <Link
               href={url}
               key={i}
               onClick={(e) => {
-                const click: 'storage' | 'offline' = ['storage', 'offline'][
+                const click: 'storage' | 'offline' = ['storage'][
                   i
-                ] as 'storage' | 'offline';
+                ] as 'storage';
                 setSelectedSubMenuIndex(0);
                 setSelectedMainMenuIndex(click);
               }}
@@ -128,9 +83,7 @@ export default function LibraryLayout({
                     : 'border-b-1 border-zinc-800 text-zinc-600'
                 }`}
               >
-                {selectedMainMenuIndex === 'offline' && i === 1
-                  ? o + ' 콘텐츠'
-                  : o}
+                {o}
               </button>
             </Link>
           );
