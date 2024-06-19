@@ -136,35 +136,39 @@ export default function SideBar() {
       </div>
 
       <div className='w-full flex flex-col justify-center px-2 mt-5'>
-        {new Array(playlists.length + 2).fill(null).map((o, i) => {
-          const titleList = ['좋아요 표시한 음악'];
-          const contextList = ['자동 재생목록'];
-
-          playlists.forEach((o) => {
-            titleList.push(o.snippet.title);
-            contextList.push(o.snippet.channelTitle);
-          });
-
-          titleList.push('나중에 볼 에피소드');
-          contextList.push('자동 재생목록');
-
-          let title = titleList[i];
-          let context = contextList[i];
-
+        {[
+          {
+            title: '좋아요 표시한 음악',
+            context: '자동 재록목록',
+            id: 'likes',
+          },
+          ...playlists.map((o) => {
+            return {
+              id: o.id,
+              title: o.snippet.title,
+              context: o.snippet.channelTitle,
+            };
+          }),
+          {
+            title: '나중에 볼 에피소드',
+            context: '자동 재생목록',
+            id: 'episode',
+          },
+        ].map((o, i) => {
           return (
             <Link
               key={i}
-              href={''}
+              href={`/playlists/${o.id}`}
               className={`flex flex-row justify-between ${
-                useMenuStore.selectedMenu !== title
+                useMenuStore.selectedMenu !== o.title
                   ? bgColor.none
                   : bgColor.selected
               } rounded-lg py-2 px-5`}
-              onClick={(e) => changeMenu(title)}
+              onClick={(e) => changeMenu(o.title)}
             >
               <button>
                 <div className='flex flex-col items-start'>
-                  <p className='text-sm'>{title}</p>
+                  <p className='text-sm'>{o.title}</p>
                   <div
                     className='flex flex-row'
                     style={{
@@ -177,7 +181,7 @@ export default function SideBar() {
                         keep
                       </span>
                     ) : null}
-                    <p className='text-[0.7rem] text-zinc-400'>{context}</p>
+                    <p className='text-[0.7rem] text-zinc-400'>{o.context}</p>
                   </div>
                 </div>
               </button>
