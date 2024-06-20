@@ -57,14 +57,15 @@ export default function SideBar() {
         {new Array(3).fill(null).map((o, i) => {
           const icon = 'home,explore,library_music'.split(',')[i];
           const text = '홈,둘러보기,보관함'.split(',')[i];
+          const id = 'home,explore,library'.split(',')[i];
           const url = '/main,/explore,/library'.split(',')[i];
           const closeMenu = (
             <Link
               key={i}
               href={url}
-              onClick={(e) => changeMenu(text)}
+              onClick={(e) => changeMenu(id)}
               className={`py-3 px-3 ${
-                useMenuStore.selectedMenu !== text
+                useMenuStore.selectedMenu !== id
                   ? bgColor.none
                   : bgColor.selected
               } rounded-xl flex flex-row justify-center`}
@@ -73,7 +74,7 @@ export default function SideBar() {
                 <span
                   className='material-symbols-outlined'
                   style={
-                    useMenuStore.selectedMenu === text
+                    useMenuStore.selectedMenu === id
                       ? style.selected
                       : style.none
                   }
@@ -97,12 +98,13 @@ export default function SideBar() {
         {new Array(3).fill(null).map((o, i) => {
           const icon = 'home,explore,library_music'.split(',')[i];
           const text = '홈,둘러보기,보관함'.split(',')[i];
+          const id = 'home,explore,library'.split(',')[i];
           const url = '/main,/explore,/library'.split(',')[i];
           const openMenu = (
-            <Link key={i} href={url} onClick={(e) => changeMenu(text)}>
+            <Link key={i} href={url} onClick={(e) => changeMenu(id)}>
               <button
                 className={`flex flex-row py-3 px-5 ${
-                  useMenuStore.selectedMenu !== text
+                  useMenuStore.selectedMenu !== id
                     ? bgColor.none
                     : bgColor.selected
                 } rounded-lg w-full`}
@@ -110,7 +112,7 @@ export default function SideBar() {
                 <span
                   className='material-symbols-outlined mr-5'
                   style={
-                    useMenuStore.selectedMenu === text
+                    useMenuStore.selectedMenu === id
                       ? style.selected
                       : style.none
                   }
@@ -160,7 +162,7 @@ export default function SideBar() {
               key={i}
               href={`/playlists/${o.id}`}
               className={`flex flex-row justify-between ${
-                useMenuStore.selectedMenu !== o.title
+                useMenuStore.selectedMenu !== o.id
                   ? bgColor.none
                   : bgColor.selected
               } rounded-lg py-2 px-5`}

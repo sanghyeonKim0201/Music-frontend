@@ -1,9 +1,8 @@
 'use client';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
-import { useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
-import { change } from '@/lib/feature/payloadSlice';
+import { change, payloadSlice } from '@/lib/feature/payloadSlice';
 
 export default function Payload({ data }: { data: RequestCookie | undefined }) {
   const usePayloadStore = useAppSelector(
@@ -15,7 +14,7 @@ export default function Payload({ data }: { data: RequestCookie | undefined }) {
     const payload = jwtDecode(data.value);
     delete payload.iat;
     delete payload.exp;
-    dispatch(change(payload));
+    dispatch(payloadSlice.actions.change(payload));
   }
 
   return null;

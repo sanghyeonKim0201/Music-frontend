@@ -1,8 +1,11 @@
-'use Client';
+'use client';
 
-import { text } from 'stream/consumers';
+import { menuSlice } from '@/lib/feature/menuSlice';
+import { useAppDispatch } from '@/lib/hooks';
 
 export default function PlaylistsPage({ params }: { params: { id: string } }) {
+  const dispatch = useAppDispatch();
+  dispatch(menuSlice.actions.selectionMenu(params.id));
   return (
     <div className='flex flex-row gap-5'>
       {[
