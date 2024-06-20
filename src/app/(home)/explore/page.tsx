@@ -66,7 +66,7 @@ export default async function ExplorePage() {
         ></TableCard>
       </div>
       <div>
-        <CategoryTable></CategoryTable>
+        <CategoryTable className='w-full'></CategoryTable>
       </div>
     </div>
   );

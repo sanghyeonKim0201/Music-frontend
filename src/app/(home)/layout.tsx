@@ -1,5 +1,6 @@
 'use client';
 
+import MusicBar from '@/components/musicBar';
 import { menuSlice } from '@/lib/feature/menuSlice';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { usePathname } from 'next/navigation';
@@ -9,7 +10,9 @@ export default function MainLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const toggle = useAppSelector((state) => state.RootReducer.menuSlice.toggle);
+  const useToggleStore = useAppSelector(
+    (state) => state.RootReducer.menuSlice.toggle,
+  );
   const dispatch = useAppDispatch();
   const pathname = usePathname();
   const menu = [
@@ -37,6 +40,6 @@ export default function MainLayout({
 
   return (
     // 사이드바 펴치면 ml-40 접히면 ml-0
-    <div className={`${toggle ? 'ml-0' : 'ml-40'}`}>{children}</div>
+    <div className={`${useToggleStore ? 'ml-0' : 'ml-40'}`}>{children}</div>
   );
 }

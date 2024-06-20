@@ -8,6 +8,7 @@ import { cookies, headers } from 'next/headers';
 import Payload from '@/components/payload';
 import Header from '@/components/header';
 import SideBar from '@/components/sidebar';
+import MusicBar from '@/components/musicBar';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -38,6 +39,7 @@ export default function RootLayout({
             <div className='h-full flex flex-row'>
               <SideBar />
               <div className='pt-20 pl-44 w-full'>{children}</div>
+              <MusicBar></MusicBar>
             </div>
           </div>
         </StoreProvider>
