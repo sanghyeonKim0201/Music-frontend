@@ -74,6 +74,7 @@ interface RecentVideos {
 interface Videos {
   kind: string;
   etag: string;
+
   items: {
     kind: string;
     etag: string;
@@ -82,6 +83,9 @@ interface Videos {
       tags: string[];
       categoryId: string;
       liveBroadcastContent: string;
+    };
+    contentDetails?: {
+      itemCount: number;
     };
   }[];
   pageInfo: {

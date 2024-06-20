@@ -12,7 +12,6 @@ export default function SongRow({
   artist?: string;
   title: string;
   album?: string;
-  time?: string;
 }) {
   return (
     <div className='flex flex-row items-center w-full border-b border-zinc-800 pb-3 justify-between mb-3'>
@@ -22,7 +21,7 @@ export default function SongRow({
           alt='profile'
           width={300}
           height={300}
-          className='w-full h-full'
+          className='w-full h-full object-cover'
         ></Image>
       </div>
       <div className='flex flex-row justify-between flex-1'>
