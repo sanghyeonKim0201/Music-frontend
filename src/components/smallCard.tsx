@@ -1,4 +1,6 @@
+'use client';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 export default function SmallCard({
   image,
@@ -13,6 +15,24 @@ export default function SmallCard({
   className?: string;
   ranking?: { status: 'up' | 'down' | 'maintain'; number: number } | undefined;
 }) {
+  const [icon, setIcon] = useState<string>('•');
+  const [bg, setBg] = useState<string>('');
+  useEffect(() => {
+    setIcon(
+      ranking?.status === 'up'
+        ? 'arrow_drop_up'
+        : ranking?.status === 'down'
+        ? 'arrow_drop_down'
+        : '•',
+    );
+    setBg(
+      ranking?.status === 'up'
+        ? 'text-green-500'
+        : ranking?.status === 'down'
+        ? 'text-red-500'
+        : 'text-gray-500',
+    );
+  }, [ranking]);
   return (
     <div className={`flex flex-row relative group ${className}`}>
       <div className=' w-12 h-12'>
@@ -29,21 +49,7 @@ export default function SmallCard({
           ranking ?? 'hidden'
         }`}
       >
-        <span
-          className={`material-symbols-outlined  p-1 ${
-            ranking?.status === 'up'
-              ? 'text-green-500'
-              : ranking?.status === 'down'
-              ? 'text-red-500'
-              : 'text-gray-500'
-          }`}
-        >
-          {ranking?.status === 'up'
-            ? 'arrow_drop_up'
-            : ranking?.status === 'down'
-            ? 'arrow_drop_down'
-            : '•'}
-        </span>
+        <span className={`material-symbols-outlined  p-1 ${bg}`}>{icon}</span>
         {ranking?.number}
       </div>
       <div

@@ -8,7 +8,6 @@ import { cookies, headers } from 'next/headers';
 import Payload from '@/components/payload';
 import Header from '@/components/header';
 import SideBar from '@/components/sidebar';
-import { usePathname } from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] });
 
