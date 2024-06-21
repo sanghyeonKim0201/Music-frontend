@@ -1,4 +1,5 @@
 'use client';
+import { musicSlice } from '@/lib/feature/musicSlice';
 import { useAppDispatch } from '@/lib/hooks';
 import Image from 'next/image';
 
@@ -14,12 +15,26 @@ export default function BigCard({
   const dispatch = useAppDispatch();
   const moveDetails = () => {};
 
-  const playVideo = () => {};
+  const playVideo = () => {
+    dispatch(
+      musicSlice.actions.startMusic({
+        id: data.id,
+        title: data.title,
+        context: data.context,
+        type: type,
+      }),
+    );
+  };
 
   return (
     <div className={`flex flex-col ${className}`}>
       <div className='mb-4 relative group flex flex-1'>
-        <button className='w-full h-full'>
+        <button
+          className='w-full h-full'
+          onClick={() => {
+            type === 'video' ? playVideo() : moveDetails();
+          }}
+        >
           {data.image ? (
             <Image
               src={data.image}

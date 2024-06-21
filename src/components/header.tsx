@@ -12,7 +12,7 @@ export default function Header() {
   };
   useEffect(() => {
     window.addEventListener('scroll', updateScroll);
-  });
+  }, []);
 
   const useMenuStore = useAppSelector((state) => state.RootReducer.menuSlice);
   const usePayloadStore = useAppSelector(
