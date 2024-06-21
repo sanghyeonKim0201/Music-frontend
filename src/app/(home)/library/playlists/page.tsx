@@ -21,6 +21,7 @@ function getPlaylistData(playlists: Playlists) {
 
   return items.map((o) => {
     return {
+      id: o.id,
       title: o.snippet.title,
       context: `${o.snippet.channelTitle} • 트랙 ${o.contentDetails?.itemCount}개`,
       image: o.snippet.thumbnails.medium.url,
@@ -85,15 +86,7 @@ export default async function PlaylistsPage() {
       </div>
 
       {itmes.map((o, i) => {
-        return (
-          <BigCard
-            context={o.context}
-            image={o.image}
-            title={o.title}
-            key={i}
-            type='playlist'
-          ></BigCard>
-        );
+        return <BigCard data={o} key={i} type='playlist'></BigCard>;
       })}
 
       <div className={`flex flex-col`}>

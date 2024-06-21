@@ -98,12 +98,17 @@ export default function CardGroup({
         {itemList[currentIndex].map((o, i) => {
           const item = o.snippet;
           const image = item.thumbnails.medium;
+          const id: any = o.id;
+
           return (
             <BigCard
               key={i}
-              image={image.url}
-              context={item.channelTitle}
-              title={item.title}
+              data={{
+                id: id.videoId ?? id,
+                image: image.url,
+                title: item.title,
+                context: item.channelTitle,
+              }}
               type={type}
             ></BigCard>
           );
