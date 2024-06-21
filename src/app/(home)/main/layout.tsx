@@ -1,8 +1,21 @@
+'use client';
+
+import { musicSlice } from '@/lib/feature/musicSlice';
+import { useDispatch } from 'react-redux';
+
 export default function MainPageLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const dispatch = useDispatch();
+  dispatch(musicSlice.actions.selectionMusic('O-2TtaQWpR4'));
+  dispatch(musicSlice.actions.titleChange('안녕 나의 사랑'));
+  dispatch(
+    musicSlice.actions.contextChange(
+      '성시경 • 여기 내 맘속에 (Special Limited Edition) • 2008',
+    ),
+  );
   return (
     <div>
       <div className={`flex flex-row pt-8`}>

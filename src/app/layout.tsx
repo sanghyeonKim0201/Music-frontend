@@ -8,7 +8,9 @@ import { cookies, headers } from 'next/headers';
 import Payload from '@/components/payload';
 import Header from '@/components/header';
 import SideBar from '@/components/sidebar';
-import MusicBar from '@/components/musicBar';
+import dynamic from 'next/dynamic';
+
+const MusicBar = dynamic(() => import('@/components/musicBar'), { ssr: false });
 
 const inter = Inter({ subsets: ['latin'] });
 
