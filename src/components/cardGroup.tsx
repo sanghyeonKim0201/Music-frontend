@@ -7,10 +7,12 @@ export default function CardGroup({
   items,
   data,
   className,
+  type,
 }: {
   items: Videos['items'] | Playlists['items'] | RecentVideos['items'];
   data: { image?: string; context?: string; title: string };
   className?: string;
+  type: 'video' | 'playlist';
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const pageNumber = 6;
@@ -102,6 +104,7 @@ export default function CardGroup({
               image={image.url}
               context={item.channelTitle}
               title={item.title}
+              type={type}
             ></BigCard>
           );
         })}

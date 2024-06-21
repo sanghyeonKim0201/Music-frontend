@@ -26,7 +26,11 @@ export default function MusicBar() {
     right: ['volume_up', 'repeat', 'shuffle', 'arrow_drop_up'],
   };
   return (
-    <div className='flex flex-row justify-between fixed z-[999] w-full bottom-0 items-center px-5 py-4 bg-zinc-800'>
+    <div
+      className={`${
+        useMusicStore.toggle ? 'flex' : 'hidden'
+      } flex-row justify-between fixed z-[999] w-full bottom-0 items-center px-5 py-4 bg-zinc-800`}
+    >
       <div className='flex flex-row gap-7 items-center'>
         {icons.left.map((o, i) => {
           return (

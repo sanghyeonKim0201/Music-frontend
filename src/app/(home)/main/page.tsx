@@ -39,6 +39,7 @@ export default async function MainPage() {
           image:
             'https://lh3.googleusercontent.com/a/ACg8ocJmUux6918duRgQiTCEWHW6eqeGv7JTljNP6uiVwsFn4JKIdMFg=s96-c',
         }}
+        type='video'
       ></CardGroup>
       <TableCard
         data={{
@@ -63,6 +64,7 @@ export default async function MainPage() {
               context: contextList[i],
               image: imageList[i],
             }}
+            type='video'
           ></CardGroup>
         );
       })}

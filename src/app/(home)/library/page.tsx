@@ -77,6 +77,7 @@ export default async function LibraryPage() {
             context={o.context}
             image={o.image}
             title={o.title}
+            type='playlist'
             key={i}
           ></BigCard>
         );

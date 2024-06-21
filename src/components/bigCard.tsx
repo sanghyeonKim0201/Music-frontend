@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 
 export default function BigCard({
@@ -5,11 +6,13 @@ export default function BigCard({
   title,
   context,
   className,
+  type,
 }: {
   image: string;
   title: string;
   context: string | React.JSX.Element;
   className?: string;
+  type: 'video' | 'playlist';
 }) {
   return (
     <div className={`flex flex-col ${className}`}>

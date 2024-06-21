@@ -91,6 +91,7 @@ export default async function PlaylistsPage() {
             image={o.image}
             title={o.title}
             key={i}
+            type='playlist'
           ></BigCard>
         );
       })}

@@ -54,6 +54,7 @@ export default async function ExplorePage() {
           items={recentVideos.items}
           data={{ title: '새 앨범 및 싱글' }}
           className='w-full'
+          type='video'
         ></CardGroup>
       </div>
 
