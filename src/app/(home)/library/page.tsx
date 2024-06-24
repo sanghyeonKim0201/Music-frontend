@@ -1,37 +1,30 @@
+'use client';
+
 import BigCard from '@/components/bigCard';
 import UseFetch from '@/utils/useFetch';
-import { cookies, headers } from 'next/headers';
-import Image from 'next/image';
-import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
-async function getPlaylists(): Promise<Playlists> {
-  const accessToken = cookies().get('accessToken')?.value;
-  const refreshToken = cookies().get('refreshToken')?.value;
-  const playlists = await UseFetch('/api/youtube/playlists', {
-    headers: {
-      Cookie: `accessToken=${accessToken}; refreshToken=${refreshToken}`,
-    },
-  });
+export default function LibraryPage() {
+  const [items, setItems] =
+    useState<{ id: string; title: string; context: string; image: string }[]>();
 
-  return await playlists.json();
-}
+  useEffect(() => {
+    async function getPlaylists() {
+      const response = await UseFetch('/api/youtube/playlists');
 
-function getPlaylistData(playlists: Playlists) {
-  const items = playlists.items;
+      const playlists: Playlists = await response.json();
 
-  return items.map((o) => {
-    return {
-      id: o.id,
-      title: o.snippet.title,
-      context: `${o.snippet.channelTitle} • 트랙 ${o.contentDetails?.itemCount}개`,
-      image: o.snippet.thumbnails.medium.url,
-    };
-  });
-}
-
-export default async function LibraryPage() {
-  const playlists = await getPlaylists();
-  const itmes = getPlaylistData(playlists);
+      setItems(
+        playlists.items.map((o) => ({
+          id: o.id,
+          title: o.snippet.title,
+          context: `${o.snippet.channelTitle} • 트랙 ${o.contentDetails?.itemCount}개`,
+          image: o.snippet.thumbnails.medium.url,
+        })),
+      );
+    }
+    getPlaylists();
+  }, []);
 
   return (
     <div className='grid grid-flow-row grid-cols-7 gap-5'>
@@ -49,7 +42,12 @@ export default async function LibraryPage() {
               more_vert
             </span>
           </button>
-          <button className=''>
+          <button
+            className=''
+            onClick={(e) => {
+              () => {};
+            }}
+          >
             <span
               className='material-symbols-outlined rounded-full absolute bottom-2 right-3 p-2 hover:p-[0.6rem] hover:opacity-100 first-line: bg-black opacity-65 group-hover:block hidden'
               style={{ fontVariationSettings: "'FILL' 1" }}
@@ -72,7 +70,7 @@ export default async function LibraryPage() {
         </div>
       </div>
 
-      {itmes.map((o, i) => {
+      {items?.map((o, i) => {
         return <BigCard data={o} type='playlist' key={i}></BigCard>;
       })}
 

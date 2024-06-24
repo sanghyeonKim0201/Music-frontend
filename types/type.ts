@@ -35,6 +35,10 @@ interface PlaylistItems {
       videoOwnerChannelTitle: string;
       videoOwnerChannelId: string;
     };
+    contentDetails: {
+      videoId: string;
+      videowPublishedAt: string;
+    };
   }[];
 }
 interface Subscriber {

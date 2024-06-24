@@ -114,10 +114,8 @@ export default function MusicBar() {
           <div className='w-12 h-12'>
             <ReactPlayer
               url={urls?.[urlIndex].url}
-              // height={48}
-              // width={48}
-              width={100}
-              height={100}
+              height={48}
+              width={48}
               controls={false}
               ref={playedRef}
               playing={useMusicStore.status.playing === 'play'}
@@ -129,6 +127,10 @@ export default function MusicBar() {
               }}
               onDuration={(e) => {
                 setTotalTime(e);
+              }}
+              onEnded={() => {
+                if (urlIndex + 1 === urls?.length) return;
+                setUrlIndex(urlIndex + 1);
               }}
             ></ReactPlayer>
           </div>

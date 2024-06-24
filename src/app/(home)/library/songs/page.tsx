@@ -24,7 +24,6 @@ async function getPlaylistItems(): Promise<PlaylistItems[]> {
 }
 function dataToMap(likeVideos: Videos, playlistItems: PlaylistItems[]) {
   const itmes = [likeVideos, ...playlistItems];
-  console.log(itmes);
   return itmes.flatMap((o) => {
     return o.items.map((obj) => ({
       id: obj.id,

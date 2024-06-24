@@ -24,7 +24,7 @@ export default function BigCard({
         musicSlice.actions.startMusic(
           items.items.map((o) => {
             return {
-              id: o.id,
+              id: o.contentDetails.videoId,
               title: o.snippet.title,
               context: o.snippet.channelTitle,
             };
