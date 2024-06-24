@@ -50,6 +50,9 @@ export default function MusicBar() {
       dispatch(musicSlice.actions.toggleLoop());
       if (useMusicStore.status.loop) icons.right[1] = 'repeat';
       else icons.right[1] = 'repeat_one';
+    } else if (index === 2) {
+      setUrls(urls?.sort(() => Math.random() - 0.5));
+      setUrlIndex(0);
     }
   };
 
