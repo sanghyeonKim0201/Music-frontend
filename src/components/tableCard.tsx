@@ -103,6 +103,7 @@ export default function TableCard({
                 key={i}
               >
                 {col.map((obj, j) => {
+                  const id = obj.id;
                   const item = obj.snippet;
                   const title = item.title;
                   const context = item.channelTitle;
@@ -111,9 +112,12 @@ export default function TableCard({
                   return (
                     <SmallCard
                       key={j}
-                      image={image}
-                      title={title}
-                      context={context}
+                      data={{
+                        id,
+                        title,
+                        context,
+                        image,
+                      }}
                       ranking={
                         ranking
                           ? {

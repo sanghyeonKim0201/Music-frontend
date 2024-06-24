@@ -1,20 +1,20 @@
 'use client';
+import { musicSlice } from '@/lib/feature/musicSlice';
+import { useAppDispatch } from '@/lib/hooks';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 export default function SmallCard({
-  image,
-  title,
-  context,
+  data,
   className,
   ranking,
 }: {
-  image: string;
-  title: string;
-  context: string;
+  data: { id: string; image: string; title: string; context: string };
   className?: string;
   ranking?: { status: 'up' | 'down' | 'maintain'; number: number } | undefined;
 }) {
+  const dispatch = useAppDispatch();
+
   const [icon, setIcon] = useState<string>('•');
   const [bg, setBg] = useState<string>('');
   useEffect(() => {
@@ -34,10 +34,19 @@ export default function SmallCard({
     );
   }, [ranking]);
   return (
-    <div className={`flex flex-row relative group ${className}`}>
+    <div
+      className={`flex flex-row relative group ${className}`}
+      onClick={(e) => {
+        dispatch(
+          musicSlice.actions.startMusic([
+            { id: data.id, context: data.context, title: data.title },
+          ]),
+        );
+      }}
+    >
       <div className=' w-12 h-12'>
         <Image
-          src={image}
+          src={data.image}
           width={100}
           height={80}
           alt='video profile'
@@ -66,8 +75,8 @@ export default function SmallCard({
         })}
       </div>
       <div className='flex flex-col text-start truncate w-72 2xl:w-96 ml-4'>
-        <div className='truncate font-bold'>{title}</div>
-        <div className='truncate font-thin text-zinc-400 '>{context}</div>
+        <div className='truncate font-bold'>{data.title}</div>
+        <div className='truncate font-thin text-zinc-400 '>{data.context}</div>
       </div>
     </div>
   );
