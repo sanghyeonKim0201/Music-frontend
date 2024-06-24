@@ -1,37 +1,37 @@
+'use client';
+
 import BigCard from '@/components/bigCard';
+import { musicSlice } from '@/lib/feature/musicSlice';
+import { useAppDispatch } from '@/lib/hooks';
 import UseFetch from '@/utils/useFetch';
 import { cookies, headers } from 'next/headers';
 import Image from 'next/image';
-import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
-async function getPlaylists(): Promise<Playlists> {
-  const accessToken = cookies().get('accessToken')?.value;
-  const refreshToken = cookies().get('refreshToken')?.value;
-  const playlists = await UseFetch('/api/youtube/playlists', {
-    headers: {
-      Cookie: `accessToken=${accessToken}; refreshToken=${refreshToken}`,
-    },
-  });
+export default function PlaylistsPage() {
+  const dispatch = useAppDispatch();
 
-  return await playlists.json();
-}
+  const [items, setItems] =
+    useState<{ id: string; title: string; context: string; image: string }[]>();
 
-function getPlaylistData(playlists: Playlists) {
-  const items = playlists.items;
+  useEffect(() => {
+    async function getPlaylists() {
+      const response = await UseFetch('/api/youtube/playlists');
 
-  return items.map((o) => {
-    return {
-      id: o.id,
-      title: o.snippet.title,
-      context: `${o.snippet.channelTitle} • 트랙 ${o.contentDetails?.itemCount}개`,
-      image: o.snippet.thumbnails.medium.url,
-    };
-  });
-}
+      const playlists: Playlists = await response.json();
 
-export default async function PlaylistsPage() {
-  const playlists = await getPlaylists();
-  const itmes = getPlaylistData(playlists);
+      setItems(
+        playlists.items.map((o, i) => ({
+          id: o.id,
+          title: o.snippet.title,
+          context: `${o.snippet.channelTitle} • 트랙 ${o.contentDetails?.itemCount}개`,
+          image: o.snippet.thumbnails.medium.url,
+        })),
+      );
+    }
+
+    getPlaylists();
+  }, []);
 
   return (
     <div className='grid grid-flow-row grid-cols-7 gap-5'>
@@ -66,6 +66,21 @@ export default async function PlaylistsPage() {
             <span
               className='material-symbols-outlined rounded-full absolute bottom-2 right-3 p-2 hover:p-[0.6rem] hover:opacity-100 first-line: bg-black opacity-65 group-hover:block hidden'
               style={{ fontVariationSettings: "'FILL' 1" }}
+              onClick={async (e) => {
+                const response = await UseFetch('/api/youtube/likes');
+
+                const likeVideos: Videos = await response.json();
+
+                dispatch(
+                  musicSlice.actions.startMusic(
+                    likeVideos.items.map((o, i) => ({
+                      id: o.id,
+                      title: o.snippet.title,
+                      context: o.snippet.channelTitle,
+                    })),
+                  ),
+                );
+              }}
             >
               play_arrow
             </span>
@@ -85,7 +100,7 @@ export default async function PlaylistsPage() {
         </div>
       </div>
 
-      {itmes.map((o, i) => {
+      {items?.map((o, i) => {
         return <BigCard data={o} key={i} type='playlist'></BigCard>;
       })}
 
