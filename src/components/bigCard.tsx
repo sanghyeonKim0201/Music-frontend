@@ -1,6 +1,7 @@
 'use client';
 import { musicSlice } from '@/lib/feature/musicSlice';
 import { useAppDispatch } from '@/lib/hooks';
+import UseFetch from '@/utils/useFetch';
 import Image from 'next/image';
 
 export default function BigCard({
@@ -15,15 +16,28 @@ export default function BigCard({
   const dispatch = useAppDispatch();
   const moveDetails = () => {};
 
-  const playVideo = () => {
-    dispatch(
-      musicSlice.actions.startMusic({
-        id: data.id,
-        title: data.title,
-        context: data.context,
-        type: type,
-      }),
-    );
+  const playVideo = async () => {
+    if (type === 'playlist') {
+      const response = await UseFetch(`/api/youtube/playlist/item/${data.id}`);
+      const items: PlaylistItems = await response.json();
+      dispatch(
+        musicSlice.actions.startMusic(
+          items.items.map((o) => {
+            return {
+              id: o.id,
+              title: o.snippet.title,
+              context: o.snippet.channelTitle,
+            };
+          }),
+        ),
+      );
+    } else {
+      dispatch(
+        musicSlice.actions.startMusic([
+          { id: data.id, title: data.title, context: data.context },
+        ]),
+      );
+    }
   };
 
   return (
@@ -59,6 +73,9 @@ export default function BigCard({
                 : 'bottom-2 right-3 p-2 hover:opacity-100 hover:p-[0.6rem] first-line: bg-black opacity-65'
             }    group-hover:block hidden`}
             style={{ fontVariationSettings: "'FILL' 1" }}
+            onClick={() => {
+              playVideo();
+            }}
           >
             play_arrow
           </span>

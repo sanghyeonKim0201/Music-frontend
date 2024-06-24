@@ -2,26 +2,25 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface InitialState {
   toggle: boolean;
-  id: string | null;
-  title: string | null;
-  context: string | null;
+  data: {
+    id: string;
+    title: string;
+    context: string;
+  }[];
+
   status: {
     playing: 'stop' | 'play';
     isVolume: boolean;
     loop: boolean;
   };
   volume: number;
-  type: 'video' | 'playlist';
 }
 
 const initialState: InitialState = {
   toggle: false,
-  id: null,
-  title: null,
-  context: null,
+  data: [{ id: '', title: '', context: '' }],
   status: { playing: 'stop', loop: false, isVolume: false },
   volume: 0.5,
-  type: 'video',
 };
 
 export const musicSlice = createSlice({
@@ -32,7 +31,7 @@ export const musicSlice = createSlice({
       state.toggle = true;
     },
     selectionMusic: (state, action) => {
-      state.id = action.payload;
+      state.data = action.payload;
     },
     statusChange: (state, action: { payload: 'stop' | 'play' }) => {
       state.status.playing = action.payload;
@@ -52,33 +51,28 @@ export const musicSlice = createSlice({
     setVolume: (state, action) => {
       state.volume = action.payload;
     },
-    typeChange: (state, action: { payload: 'video' | 'playlist' }) => {
-      state.type = action.payload;
+
+    titleChange: (
+      state,
+      action: { payload: { title: string; index: number } },
+    ) => {
+      state.data[action.payload.index].title = action.payload.title;
     },
-    titleChange: (state, action: { payload: string }) => {
-      state.title = action.payload;
-    },
-    contextChange: (state, action: { payload: string }) => {
-      state.context = action.payload;
+    contextChange: (
+      state,
+      action: { payload: { title: string; index: number } },
+    ) => {
+      state.data[action.payload.index].title = action.payload.title;
     },
     startMusic: (
       state,
       action: {
-        payload: {
-          id: string;
-          title: string;
-          context: string;
-          type: 'video' | 'playlist';
-        };
+        payload: { title: string; context: string; id: string }[];
       },
     ) => {
-      const { id, title, context, type } = action.payload;
-      state.id = id;
-      state.title = title;
-      state.context = context;
+      state.data = action.payload;
       state.toggle = true;
       state.status.playing = 'play';
-      state.type = type;
     },
   },
 });
