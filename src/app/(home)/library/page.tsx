@@ -1,10 +1,13 @@
 'use client';
 
 import BigCard from '@/components/bigCard';
+import { musicSlice } from '@/lib/feature/musicSlice';
+import { useAppDispatch } from '@/lib/hooks';
 import UseFetch from '@/utils/useFetch';
 import { useEffect, useState } from 'react';
 
 export default function LibraryPage() {
+  const dispatch = useAppDispatch();
   const [items, setItems] =
     useState<{ id: string; title: string; context: string; image: string }[]>();
 
@@ -42,15 +45,25 @@ export default function LibraryPage() {
               more_vert
             </span>
           </button>
-          <button
-            className=''
-            onClick={(e) => {
-              () => {};
-            }}
-          >
+          <button>
             <span
               className='material-symbols-outlined rounded-full absolute bottom-2 right-3 p-2 hover:p-[0.6rem] hover:opacity-100 first-line: bg-black opacity-65 group-hover:block hidden'
               style={{ fontVariationSettings: "'FILL' 1" }}
+              onClick={async (e) => {
+                const response = await UseFetch('/api/youtube/likes');
+
+                const likeVideos: Videos = await response.json();
+
+                dispatch(
+                  musicSlice.actions.startMusic(
+                    likeVideos.items.map((o, i) => ({
+                      id: o.id,
+                      title: o.snippet.title,
+                      context: o.snippet.channelTitle,
+                    })),
+                  ),
+                );
+              }}
             >
               play_arrow
             </span>
