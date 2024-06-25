@@ -6,6 +6,7 @@ interface InitialState {
     id: string;
     title: string;
     context: string;
+    like: 'like' | 'dislike' | 'none';
   }[];
 
   status: {
@@ -18,7 +19,7 @@ interface InitialState {
 
 const initialState: InitialState = {
   toggle: false,
-  data: [{ id: '', title: '', context: '' }],
+  data: [{ id: '', title: '', context: '', like: 'none' }],
   status: { playing: 'stop', loop: false, isVolume: false },
   volume: 0.5,
 };
@@ -67,7 +68,12 @@ export const musicSlice = createSlice({
     startMusic: (
       state,
       action: {
-        payload: { title: string; context: string; id: string }[];
+        payload: {
+          title: string;
+          context: string;
+          id: string;
+          like: 'like' | 'dislike' | 'none';
+        }[];
       },
     ) => {
       state.data = action.payload;

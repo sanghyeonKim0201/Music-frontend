@@ -2,11 +2,13 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import menuSlice from './feature/menuSlice';
 import payloadSlice from './feature/payloadSlice';
 import musicSlice from './feature/musicSlice';
+import ratingSlice from './feature/ratingSlice';
 
 const RootReducer = combineReducers({
   menuSlice,
   payloadSlice,
   musicSlice,
+  ratingSlice,
 });
 
 export const makeStore = () => {

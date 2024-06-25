@@ -1,6 +1,7 @@
 'use client';
 import { musicSlice } from '@/lib/feature/musicSlice';
-import { useAppDispatch } from '@/lib/hooks';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import UseFetch from '@/utils/useFetch';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
@@ -13,10 +14,16 @@ export default function SmallCard({
   className?: string;
   ranking?: { status: 'up' | 'down' | 'maintain'; number: number } | undefined;
 }) {
+  const useRatingStore = useAppSelector(
+    (state) => state.RootReducer.ratingSlice,
+  );
   const dispatch = useAppDispatch();
 
   const [icon, setIcon] = useState<string>('•');
   const [bg, setBg] = useState<string>('');
+  const [ratingStatus, setRatingStatus] = useState<'like' | 'dislike' | 'none'>(
+    'none',
+  );
   useEffect(() => {
     setIcon(
       ranking?.status === 'up'
@@ -32,14 +39,32 @@ export default function SmallCard({
         ? 'text-red-500'
         : 'text-gray-500',
     );
-  }, [ranking]);
+
+    if (useRatingStore.likeVideos.find((o) => o === data.id)) {
+      setRatingStatus('like');
+    } else if (useRatingStore.dislikeVideos.find((o) => o === data.id)) {
+      setRatingStatus('dislike');
+    } else {
+      setRatingStatus('none');
+    }
+  }, [
+    ranking,
+    data.id,
+    useRatingStore.likeVideos,
+    useRatingStore.dislikeVideos,
+  ]);
   return (
     <div
       className={`flex flex-row relative group ${className}`}
       onClick={(e) => {
         dispatch(
           musicSlice.actions.startMusic([
-            { id: data.id, context: data.context, title: data.title },
+            {
+              id: data.id,
+              context: data.context,
+              title: data.title,
+              like: ratingStatus,
+            },
           ]),
         );
       }}
@@ -67,7 +92,15 @@ export default function SmallCard({
         {['thumb_up', 'thumb_down', 'more_vert'].map((o, i) => {
           return (
             <button key={i} className='items-center flex flex-row mr-5'>
-              <span className='material-symbols-outlined hover:bg-zinc-800 p-2 rounded-full'>
+              <span
+                style={
+                  (i === 0 && ratingStatus === 'like') ||
+                  (i === 1 && ratingStatus === 'dislike')
+                    ? { fontVariationSettings: "'FILL' 1" }
+                    : {}
+                }
+                className='material-symbols-outlined hover:bg-zinc-800 p-2 rounded-full'
+              >
                 {o}
               </span>
             </button>
