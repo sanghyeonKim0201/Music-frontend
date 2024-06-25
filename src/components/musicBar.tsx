@@ -5,6 +5,12 @@ import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 
+function formatTime(seconds: number) {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${minutes}:${remainingSeconds.toFixed(0).padStart(2, '0')}`;
+}
+
 export default function MusicBar() {
   const useMusicStore = useAppSelector((state) => state.RootReducer.musicSlice);
   const useRatingStore = useAppSelector(
@@ -131,6 +137,9 @@ export default function MusicBar() {
               </button>
             );
           })}
+          <div className='text-sm font-thin'>{`${formatTime(
+            played,
+          )} / ${formatTime(totalTime)}`}</div>
         </div>
         <div className='flex flex-row flex-grow gap-5 items-center justify-center'>
           <div className='w-12 h-12'>
