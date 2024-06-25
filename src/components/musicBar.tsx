@@ -7,6 +7,10 @@ import ReactPlayer from 'react-player';
 
 export default function MusicBar() {
   const useMusicStore = useAppSelector((state) => state.RootReducer.musicSlice);
+  const useRatingStore = useAppSelector(
+    (state) => state.RootReducer.ratingSlice,
+  );
+
   const dispatch = useAppDispatch();
 
   const [icons, setIcons] = useState({
@@ -21,7 +25,9 @@ export default function MusicBar() {
     useState<{ url: string; title: string; context: string }[]>();
   const [totalTime, setTotalTime] = useState(0);
   const [urlIndex, setUrlIndex] = useState(0);
-
+  const [ratingStatus, setRatingStatus] = useState<'like' | 'dislike' | 'none'>(
+    'none',
+  );
   const onLeftIconClick = (index: number) => {
     if (!urls || urls?.length === 0) return;
     if (index === 0) {
@@ -57,6 +63,18 @@ export default function MusicBar() {
   };
 
   useEffect(() => {
+    if (
+      useRatingStore.likeVideos.find((o) => urls?.[urlIndex].url.endsWith(o))
+    ) {
+      setRatingStatus('like');
+    } else if (
+      useRatingStore.dislikeVideos.find((o) => urls?.[urlIndex].url.endsWith(o))
+    ) {
+      setRatingStatus('dislike');
+    } else {
+      setRatingStatus('none');
+    }
+
     if (useMusicStore.data) {
       setUrls(
         useMusicStore.data.map((o) => {
@@ -68,7 +86,8 @@ export default function MusicBar() {
         }),
       );
     }
-  }, [useMusicStore.data]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [useMusicStore.data, useRatingStore, urlIndex]);
 
   return (
     <div
@@ -155,7 +174,12 @@ export default function MusicBar() {
                   }}
                 >
                   <span
-                    style={{ fontVariationSettings: '' }}
+                    style={
+                      (i === 0 && ratingStatus === 'dislike') ||
+                      (i === 1 && ratingStatus === 'like')
+                        ? { fontVariationSettings: "'FILL' 1" }
+                        : {}
+                    }
                     className='material-symbols-outlined font-light text-2xl'
                   >
                     {o}
