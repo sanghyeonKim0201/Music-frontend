@@ -117,7 +117,7 @@ export default function MusicBar() {
       <div
         className={`flex flex-row justify-between w-full items-center px-5 pb-4 pt-2 `}
       >
-        <div className='flex flex-row gap-7 flex-grow items-center'>
+        <div className='flex flex-row gap-7 flex-grow items-center max-w-80'>
           {icons.left.map((o, i) => {
             return (
               <button
