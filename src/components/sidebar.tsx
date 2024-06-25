@@ -1,5 +1,5 @@
 'use client';
-import { selectionMenu } from '@/lib/feature/menuSlice';
+import { menuSlice } from '@/lib/feature/menuSlice';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import UseFetch from '@/utils/useFetch';
 import Link from 'next/link';
@@ -37,7 +37,7 @@ export default function SideBar() {
   }, []);
 
   function changeMenu(payload: string) {
-    dispatch(selectionMenu(payload));
+    dispatch(menuSlice.actions.selectionMenu(payload));
   }
 
   const closeSide = (
@@ -166,7 +166,7 @@ export default function SideBar() {
                   ? bgColor.none
                   : bgColor.selected
               } rounded-lg py-2 px-5`}
-              onClick={(e) => changeMenu(o.title)}
+              onClick={(e) => changeMenu(o.id)}
             >
               <button>
                 <div className='flex flex-col items-start'>

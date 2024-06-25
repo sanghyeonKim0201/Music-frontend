@@ -1,12 +1,11 @@
-'use Client';
+'use client';
 
 import { menuSlice } from '@/lib/feature/menuSlice';
 import { useAppDispatch } from '@/lib/hooks';
-import { text } from 'stream/consumers';
 
 export default function LikesPage() {
   const dispatch = useAppDispatch();
-  dispatch(menuSlice.actions.selectionMenu('좋아요 표시한 음악'));
+  dispatch(menuSlice.actions.selectionMenu('likes'));
   return (
     <div className='flex flex-row gap-5'>
       {[
