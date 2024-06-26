@@ -3,9 +3,11 @@ import { menuSlice } from '@/lib/feature/menuSlice';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function Header() {
+  const router = useRouter();
   const [scrollPosition, setScrollPosition] = useState(0);
   const updateScroll = () => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
@@ -78,6 +80,11 @@ export default function Header() {
               className='bg-transparent border-none outline-none w-[26rem]'
               type='search'
               placeholder='노래, 앨범, 아티스트, 팟캐스트 검색'
+              onKeyDown={(e) => {
+                if (e.code === 'Enter') {
+                  router.push(`/search?keyword=${e.currentTarget.value}`);
+                }
+              }}
             />
           </div>
         </div>
