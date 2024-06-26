@@ -35,15 +35,7 @@ export default function SearchPage() {
   }, [dispatch, searchParams]);
 
   function playMusic(id: string, title: string, context: string) {
-    const { likeVideos, dislikeVideos } = useRatingStore;
-    let like: 'none' | 'like' | 'dislike' = 'none';
-    if (likeVideos.find((o) => id === o)) {
-      like = 'like';
-    } else if (dislikeVideos.find((o) => o === id)) {
-      like = 'dislike';
-    }
-
-    dispatch(musicSlice.actions.startMusic([{ id, title, context, like }]));
+    dispatch(musicSlice.actions.startMusic([{ id, title, context }]));
   }
 
   return (

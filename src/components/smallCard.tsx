@@ -63,7 +63,6 @@ export default function SmallCard({
               id: data.id,
               context: data.context,
               title: data.title,
-              like: ratingStatus,
             },
           ]),
         );
