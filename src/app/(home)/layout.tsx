@@ -1,10 +1,11 @@
 'use client';
 
+import PlaylistInsert from '@/components/modal/playlistInsert';
 import MusicBar from '@/components/musicBar';
 import { menuSlice } from '@/lib/feature/menuSlice';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { usePathname } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function MainLayout({
   children,
@@ -14,9 +15,9 @@ export default function MainLayout({
   const useToggleStore = useAppSelector(
     (state) => state.RootReducer.menuSlice.toggle,
   );
+  const { element } = useAppSelector((state) => state.RootReducer.modalSlice);
   const dispatch = useAppDispatch();
   const pathname = usePathname();
-
   useEffect(() => {
     const menu = [
       {
@@ -43,6 +44,9 @@ export default function MainLayout({
 
   return (
     // 사이드바 펴치면 ml-40 접히면 ml-0
-    <div className={`${useToggleStore ? 'ml-0' : 'ml-40'}`}>{children}</div>
+    <div>
+      {element}
+      <div className={`${useToggleStore ? 'ml-0' : 'ml-40'}`}>{children}</div>
+    </div>
   );
 }

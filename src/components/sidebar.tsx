@@ -1,9 +1,11 @@
 'use client';
 import { menuSlice } from '@/lib/feature/menuSlice';
+import { modalSlice } from '@/lib/feature/modalSlice';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import UseFetch from '@/utils/useFetch';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import PlaylistInsert from './modal/playlistInsert';
 
 export default function SideBar() {
   const bgColor = { selected: 'bg-zinc-800', none: 'hover:bg-zinc-700' };
@@ -131,7 +133,7 @@ export default function SideBar() {
       <hr className='border-zinc-700 mt-6 w-48' />
 
       <div className='flex w-full justify-center mt-6'>
-        <button className='flex flex-row bg-zinc-800 hover:bg-zinc-700 px-12 justify-center items-center rounded-3xl'>
+        <button className='flex flex-row bg-zinc-800 hover:bg-zinc-700 px-12 justify-center items-center rounded-3xl' onClick={(e)=>{dispatch(modalSlice.actions.onModal(<PlaylistInsert></PlaylistInsert>))}}>
           <span className='material-symbols-outlined mr-1 text-3xl'>add</span>
           <p className='text-sm'>새 재생목록</p>
         </button>
