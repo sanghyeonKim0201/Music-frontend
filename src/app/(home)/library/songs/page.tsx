@@ -1,59 +1,70 @@
+'use client';
 import SongRow from '@/components/songRow';
+import { musicSlice } from '@/lib/feature/musicSlice';
+import { useAppDispatch } from '@/lib/hooks';
 import UseFetch from '@/utils/useFetch';
-import { cookies } from 'next/headers';
+import { useEffect, useState } from 'react';
 
-const accessToken = cookies().get('accessToken')?.value;
-const refreshToken = cookies().get('refreshToken')?.value;
+export default function SongsPage() {
+  const dispatch = useAppDispatch();
 
-async function getLikeVideoData(): Promise<Videos> {
-  const videos = await UseFetch('/api/youtube/likes', {
-    headers: {
-      Cookie: `accessToken=${accessToken}; refreshToken=${refreshToken}`,
-    },
-  });
-  return await videos.json();
-}
-async function getPlaylistItems(): Promise<PlaylistItems[]> {
-  const playlists = await UseFetch('/api/youtube/playlists/items', {
-    headers: {
-      Cookie: `accessToken=${accessToken}; refreshToken=${refreshToken}`,
-    },
-  });
+  const [items, setItems] = useState<
+    {
+      id: string;
+      title: string;
+      artist: string;
+      image: string;
+      album: string;
+    }[]
+  >();
 
-  return await playlists.json();
-}
-function dataToMap(likeVideos: Videos, playlistItems: PlaylistItems[]) {
-  const itmes = [likeVideos, ...playlistItems];
-  return itmes.flatMap((o) => {
-    return o.items.map((obj) => {
-      return {
-        //@ts-ignore
-        id: obj.contentDetails?.videoId ?? obj.id,
-        title: obj.snippet.title,
-        artist: obj.snippet.channelTitle,
-        image: obj.snippet.thumbnails.medium.url,
-        album: obj.snippet.channelTitle,
-      };
-    });
-  });
-  // return likeVideos.items.map((o) => {
-  //   return {
-  //     id: o.id,
-  //     title: o.snippet.title,
-  //     artist: o.snippet.channelTitle,
-  //     image: o.snippet.thumbnails.medium.url,
-  //     album: o.snippet.channelTitle,
-  //   };
-  // });
-}
-export default async function SongsPage() {
-  const likeVideos = await getLikeVideoData();
-  const playlistItems = await getPlaylistItems();
-  const items = dataToMap(likeVideos, playlistItems);
+  useEffect(() => {
+    async function getLikeVideoData() {
+      const videos = await UseFetch('/api/youtube/likes');
+      const playlists = await UseFetch('/api/youtube/playlists/items');
+
+      const videosData: Videos = await videos.json();
+      const playlistsData: PlaylistItems[] = await playlists.json();
+
+      const itmes = [videosData, ...playlistsData];
+      setItems(
+        itmes.flatMap((o) => {
+          return o.items.map((obj) => {
+            return {
+              //@ts-ignore
+              id: obj.contentDetails?.videoId ?? obj.id,
+              title: obj.snippet.title,
+              artist: obj.snippet.channelTitle,
+              image: obj.snippet.thumbnails.medium.url,
+              album: obj.snippet.channelTitle,
+            };
+          });
+        }),
+      );
+    }
+
+    getLikeVideoData();
+  }, []);
 
   return (
     <div className='flex flex-col'>
-      <div className='flex flex-row items-center w-full border-b border-zinc-800 pb-3 mb-3'>
+      <div
+        className='flex flex-row items-center w-full border-b border-zinc-800 pb-3 mb-3'
+        onClick={(e) => {
+          if (!items) return;
+          dispatch(
+            musicSlice.actions.startMusic(
+              items
+                .sort(() => Math.random() - 0.5)
+                .map((o) => ({
+                  id: o.id,
+                  title: o.title,
+                  context: o.artist,
+                })),
+            ),
+          );
+        }}
+      >
         <svg
           xmlns='http://www.w3.org/2000/svg'
           viewBox='0 0 512 512'
@@ -64,7 +75,7 @@ export default async function SongsPage() {
         </svg>
         <div>모두 재생</div>
       </div>
-      {items.map((o, i) => {
+      {items?.map((o, i) => {
         return (
           <SongRow
             id={o.id}
