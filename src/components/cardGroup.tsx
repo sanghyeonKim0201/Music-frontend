@@ -67,9 +67,9 @@ export default function CardGroup({
             items.length > pageNumber ? 'block' : 'hidden'
           }`}
         >
-          <button className='font-thin items-center border rounded-full mb-1 py-[0.3rem] px-3 mr-6 text-sm'>
+          {/* <button className='font-thin items-center border rounded-full mb-1 py-[0.3rem] px-3 mr-6 text-sm'>
             더보기
-          </button>
+          </button> */}
           <button onClick={prevClick}>
             <span
               className={`material-symbols-outlined font-thin border rounded-full p-1 mr-3 ${
