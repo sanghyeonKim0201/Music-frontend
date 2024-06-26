@@ -3,6 +3,7 @@ import { musicSlice } from '@/lib/feature/musicSlice';
 import { useAppDispatch } from '@/lib/hooks';
 import UseFetch from '@/utils/useFetch';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export default function BigCard({
   data,
@@ -13,6 +14,7 @@ export default function BigCard({
   className?: string;
   type: 'video' | 'playlist';
 }) {
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const moveDetails = () => {};
 
@@ -56,6 +58,11 @@ export default function BigCard({
               width={152}
               height={152}
               className='rounded-md w-full h-full object-cover group-hover:brightness-50'
+              onClick={(e) => {
+                type === 'playlist'
+                  ? router.push(`/playlists/${data.id}`)
+                  : null;
+              }}
             ></Image>
           ) : null}
         </button>
