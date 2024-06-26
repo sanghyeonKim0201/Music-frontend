@@ -2,10 +2,13 @@
 
 import { menuSlice } from '@/lib/feature/menuSlice';
 import { useAppDispatch } from '@/lib/hooks';
+import { useEffect } from 'react';
 
 export default function PlaylistsPage({ params }: { params: { id: string } }) {
   const dispatch = useAppDispatch();
-  dispatch(menuSlice.actions.selectionMenu(params.id));
+  useEffect(() => {
+    dispatch(menuSlice.actions.selectionMenu(params.id));
+  });
   return (
     <div className='flex flex-row gap-5'>
       {[

@@ -17,7 +17,7 @@ async function getPlaylistItem(
   const data: PlaylistItems = await response.json();
 
   return data.items.map((o) => ({
-    id: o.id,
+    id: o.contentDetails.videoId,
     title: o.snippet.title,
     image: o.snippet.thumbnails.medium.url,
     artist: o.snippet.channelTitle,

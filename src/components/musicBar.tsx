@@ -34,6 +34,8 @@ export default function MusicBar() {
   const [ratingStatus, setRatingStatus] = useState<'like' | 'dislike' | 'none'>(
     'none',
   );
+  const [time, setTime] = useState<string>('0:00 / 0:00');
+
   const onLeftIconClick = (index: number) => {
     if (!urls || urls?.length === 0) return;
     if (index === 0) {
@@ -69,6 +71,8 @@ export default function MusicBar() {
   };
 
   useEffect(() => {
+    setTime(`${formatTime(played)} / ${formatTime(totalTime)}`);
+
     if (
       useRatingStore.likeVideos.find((o) => urls?.[urlIndex].url.endsWith(o))
     ) {
@@ -137,12 +141,10 @@ export default function MusicBar() {
               </button>
             );
           })}
-          <div className='text-sm font-thin'>{`${formatTime(
-            played,
-          )} / ${formatTime(totalTime)}`}</div>
+          <div className='text-sm font-thin'>{time}</div>
         </div>
         <div className='flex flex-row flex-grow gap-5 items-center justify-center'>
-          <div className='w-12 h-12'>
+          <div className=''>
             <ReactPlayer
               url={urls?.[urlIndex].url}
               height={48}

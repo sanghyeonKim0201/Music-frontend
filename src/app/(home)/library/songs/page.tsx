@@ -25,13 +25,16 @@ async function getPlaylistItems(): Promise<PlaylistItems[]> {
 function dataToMap(likeVideos: Videos, playlistItems: PlaylistItems[]) {
   const itmes = [likeVideos, ...playlistItems];
   return itmes.flatMap((o) => {
-    return o.items.map((obj) => ({
-      id: obj.id,
-      title: obj.snippet.title,
-      artist: obj.snippet.channelTitle,
-      image: obj.snippet.thumbnails.medium.url,
-      album: obj.snippet.channelTitle,
-    }));
+    return o.items.map((obj) => {
+      return {
+        //@ts-ignore
+        id: obj.contentDetails?.videoId ?? obj.id,
+        title: obj.snippet.title,
+        artist: obj.snippet.channelTitle,
+        image: obj.snippet.thumbnails.medium.url,
+        album: obj.snippet.channelTitle,
+      };
+    });
   });
   // return likeVideos.items.map((o) => {
   //   return {
