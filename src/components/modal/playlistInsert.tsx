@@ -2,17 +2,30 @@
 
 import { modalSlice } from '@/lib/feature/modalSlice';
 import { useAppDispatch } from '@/lib/hooks';
+import UseFetch from '@/utils/useFetch';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function PlaylistInsert() {
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState('public');
 
-  function onClick(index: number) {
+  async function onClick(index: number) {
     if (index === 1) {
+      if (title === '') return;
+      if (description === '') return;
+      const response = await UseFetch('/api/youtube/playlist', {
+        method: 'post',
+        body: JSON.stringify({
+          title,
+          description,
+          status,
+        }),
+      });
     }
     dispatch(modalSlice.actions.offModal());
   }
@@ -44,11 +57,11 @@ export default function PlaylistInsert() {
           id=''
           className='bg-transparent'
           onChange={(e) => {
-            console.log(e.target.value);
+            setStatus(e.target.value);
           }}
         >
           <option value='public'>공개</option>
-          <option value='part'>일부 공개</option>
+          <option value='unlisted'>일부 공개</option>
           <option value='private'>비공개</option>
         </select>
       </div>
