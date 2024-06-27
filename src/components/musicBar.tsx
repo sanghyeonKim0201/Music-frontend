@@ -157,6 +157,7 @@ export default function MusicBar() {
               muted={useMusicStore.status.isVolume}
               onProgress={(e) => {
                 setPlayed(e.playedSeconds);
+                setTime(`${formatTime(played)} / ${formatTime(totalTime)}`);
               }}
               onDuration={(e) => {
                 setTotalTime(e);
